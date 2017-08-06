@@ -11,7 +11,7 @@ const CloseButton = data => {
   }
 
   return (
-    <Button icon onClick={removeThis} circular size="mini" compact basic>
+    <Button icon onClick={removeThis} circular size="mini" compact basic floated="right">
       <Icon name="remove" color="red" />
     </Button>
   )
@@ -23,14 +23,15 @@ export default class extends React.Component {
   }
 
   render() {
-    const { url, favIconUrl, title, id } = this.props
+    const { url, favIconUrl, title, id, index } = this.props
     const openThis = () => {
       openLink(url)
       removeItem(id)
     }
+    const zebraClassName = index % 2 ? 'even' : 'odd'
 
     return (
-      <div style={{ marginBottom: '10px', cursor: 'pointer' }} onClick={openThis}>
+      <div style={{ marginBottom: '10px', cursor: 'pointer' }} className={zebraClassName} onClick={openThis}>
         {this.props.id}
         <CloseButton {...this.props} />
         <Image src={favIconUrl} height={14} inline style={{ margin: '0 8px' }} />
