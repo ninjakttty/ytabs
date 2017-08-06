@@ -1,7 +1,7 @@
 const saveTabs = tabs => {
   console.log('tab  saveTabs!!', tabs)
   return new Promise((resolve, reject) => {
-    chrome.storage.sync.set({ data: tabs }, () => {
+    chrome.storage.local.set({ data: tabs }, () => {
       if (chrome.runtime.error) {
         reject('runtime storage error')
       }
@@ -22,7 +22,7 @@ const getTabs = id => {
   console.log('getTabs id', id)
 
   return new Promise((resolve, reject) => {
-    chrome.storage.sync.get('data', items => {
+    chrome.storage.local.get('data', items => {
       if (!chrome.runtime.error) {
         resolve(items)
       }
