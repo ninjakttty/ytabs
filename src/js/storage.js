@@ -30,10 +30,12 @@ const getTabs = id => {
   })
 }
 
-const removeItem = id => () => {
+const removeItem = id => {
   console.log('removing', id)
 }
 
-const openLink = url => () => chrome.tabs.create({ url: url, active: false })
+const openLink = url => {
+  chrome.tabs.create({ url: url, active: false })
+}
 
 export { saveTabs, getTabs, removeItem, openLink }

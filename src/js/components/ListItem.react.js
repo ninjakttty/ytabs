@@ -5,8 +5,11 @@ import { removeItem, openLink } from '../storage'
 
 const CloseButton = data => {
   const { favIconUrl, id } = data
-  // console.log('data', data)
-  const removeThis = removeItem(id)
+  const removeThis = e => {
+    e.stopPropagation()
+    removeItem(id)
+  }
+
   return (
     <Button icon onClick={removeThis} circular size="mini" compact basic>
       <Icon name="remove" color="red" />
@@ -17,13 +20,12 @@ const CloseButton = data => {
 export default class extends React.Component {
   constructor(props) {
     super(props)
-    // this.saveAll = this.saveAll.bind(this)
   }
+
   render() {
     const { url, favIconUrl, title } = this.props
-    const openThis = openLink(url)
+    const openThis = () => openLink(url)
 
-    openLink(url)
     return (
       <div style={{ marginBottom: '10px', cursor: 'pointer' }} onClick={openThis}>
         <CloseButton {...this.props} />
