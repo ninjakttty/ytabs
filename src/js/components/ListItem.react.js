@@ -23,8 +23,11 @@ export default class extends React.Component {
   }
 
   render() {
-    const { url, favIconUrl, title } = this.props
-    const openThis = () => openLink(url)
+    const { url, favIconUrl, title, id } = this.props
+    const openThis = () => {
+      openLink(url)
+      removeItem(id)
+    }
 
     return (
       <div style={{ marginBottom: '10px', cursor: 'pointer' }} onClick={openThis}>
