@@ -11,10 +11,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     const urls = request.payload
     console.log('urls', urls)
 
-    render(<BackgroundPage urls={urls} />, window.document.getElementById('app-container'))
+    // render(<BackgroundPage />, window.document.getElementById('app-container'))
 
     sendResponse({ farewell: 'goodbye', data: sender.tab.url })
   }
 })
 
-render(<BackgroundPage urls={[]} />, window.document.getElementById('app-container'))
+render(<BackgroundPage />, window.document.getElementById('app-container'))
