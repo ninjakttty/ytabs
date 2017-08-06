@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Icon } from 'semantic-ui-react'
 import { Image } from 'semantic-ui-react'
-import { removeItem } from '../storage'
+import { removeItem, openLink } from '../storage'
 
 const CloseButton = data => {
   const { favIconUrl, id } = data
@@ -13,8 +13,6 @@ const CloseButton = data => {
     </Button>
   )
 }
-
-const openLink = url => () => chrome.tabs.create({ url: url, active: false })
 
 export default class extends React.Component {
   constructor(props) {
