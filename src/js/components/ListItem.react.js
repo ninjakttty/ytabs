@@ -28,6 +28,7 @@ export default class extends React.Component {
 
     return (
       <div style={{ marginBottom: '10px', cursor: 'pointer' }} onClick={openThis}>
+        {this.props.id}
         <CloseButton {...this.props} />
         <Image src={favIconUrl} height={14} inline style={{ margin: '0 8px' }} />
         {title}

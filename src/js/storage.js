@@ -30,9 +30,9 @@ const getTabs = id => {
   })
 }
 
-const removeItem = id => {
+const removeItem = currentId => {
   chrome.storage.sync.get('data', ({ data }) => {
-    const filteredTabs = data.filter(({ id }) => id !== id)
+    const filteredTabs = data.filter(({ id }) => id !== currentId)
     return saveTabs(filteredTabs)
   })
 }
