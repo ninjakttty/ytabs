@@ -31,7 +31,10 @@ const getTabs = id => {
 }
 
 const removeItem = id => {
-  console.log('removing', id)
+  chrome.storage.sync.get('data', ({ data }) => {
+    const filteredTabs = data.filter(({ id }) => id !== id)
+    saveTabs(filteredTabs)
+  })
 }
 
 const openLink = url => {
