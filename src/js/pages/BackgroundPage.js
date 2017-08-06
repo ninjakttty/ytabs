@@ -6,11 +6,9 @@ import { getTabs } from '../storage'
 export default class extends React.Component {
   constructor(props) {
     super(props)
-    // this.saveAll = this.saveAll.bind(this)
-    this.state = {
-      items: [],
-    }
+    this.state = { items: [] }
   }
+
   componentWillMount() {
     getTabs('yuri').then(items => items.data).then(items => {
       console.log('componentWillMount', items)
@@ -18,20 +16,14 @@ export default class extends React.Component {
     })
   }
 
+  componentDidMount() {
+    chrome.storage.onChanged.addListener(() => {
+      getTabs('yuri').then(items => items.data).then(items => this.setState({ items: items }))
+    })
+  }
+
   render() {
     console.log('background page render')
-
-    // const p = getTabs('yuri')
-    // // .then((items)=>{
-    // //   console.log('hitems', items)
-    // // } )
-
-    // // console.log('x', x)
-    // p.then(items=>items.data)
-    //  .then( (items) => {
-    //   console.log('moo', items)
-    //   // this.setState({items: items})
-    // }  )
 
     return (
       <div>
