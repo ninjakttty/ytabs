@@ -1,19 +1,27 @@
 import React from 'react'
 import icon from '../../img/icon-128.png'
 // import List from '../components/List.react'
+import { List } from 'semantic-ui-react'
 import ListItem from './ListItem.react'
 import { Button, Icon } from 'semantic-ui-react'
-import { saveTabs } from '../storage'
+import { saveTabs, removeItem, openLink } from '../storage'
 
-const restoreAllTabs = urls => () => {
-  console.log('urls', urls)
+const restoreAllTabs = sites => () => {
+  // console.log('urls', sites)
+
+  sites.forEach(site => {
+    chrome.tabs.create({ url: site.url, active: false })
+    removeItem(site.id)
+    // console.log('site.id', site.id)
+  })
+  // sites.forEach(site => chrome.tabs.create({ url: site.url, active: false }))
 }
 
 const handleDelete = urls => () => {
-  console.log('handleDelete', urls)
+  // console.log('handleDelete', urls)
 }
 
-const List = props => {
+const MooList = props => {
   const { urls } = props
   const onRestore = restoreAllTabs(urls)
   const onDelete = handleDelete(urls)
@@ -31,10 +39,10 @@ const List = props => {
         icon
         size="mini"
         onClick={() => {
-          console.log('save all...')
+          // console.log('save all...')
 
           chrome.tabs.query({ currentWindow: true }, tabs => {
-            console.log('t', tabs)
+            // console.log('t', tabs)
             saveTabs(tabs)
           })
         }}
@@ -46,4 +54,4 @@ const List = props => {
   )
 }
 
-export default List
+export default MooList
