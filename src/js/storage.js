@@ -31,8 +31,7 @@ const getTabs = id => {
 }
 
 const removeItem = currentId => {
-  chrome.storage.sync.get('data', ({ data }) => {
-
+  chrome.storage.local.get('data', ({ data }) => {
     console.log('data', data, currentId)
     const filteredTabs = data.filter(({ id }) => id !== currentId)
     console.log('filteredTabs', filteredTabs)
