@@ -19,7 +19,7 @@ const saveTabs = tabs => {
 }
 // const makeRequest = async () => {s
 const getTabs = id => {
-  console.log('getTabs id', id)
+  // console.log('getTabs id', id)
 
   return new Promise((resolve, reject) => {
     chrome.storage.local.get('data', items => {
@@ -32,10 +32,10 @@ const getTabs = id => {
 
 const removeItem = currentId => {
   chrome.storage.sync.get('data', ({ data }) => {
+    // console.log('id , currentId', data.id, currentId)
 
-    console.log('data', data, currentId)
     const filteredTabs = data.filter(({ id }) => id !== currentId)
-    console.log('filteredTabs', filteredTabs)
+    // console.log('filteredTabs', currentId.id)
 
     return saveTabs(filteredTabs)
   })

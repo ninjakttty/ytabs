@@ -9,11 +9,9 @@ export default class extends React.Component {
     this.state = { items: [] }
   }
 
-
-
   componentWillMount() {
     getTabs('yuri').then(items => items.data).then(items => {
-      console.log('componentWillMount', items)
+      // console.log('componentWillMount', items)
       this.setState({ items: items })
     })
   }
@@ -25,7 +23,7 @@ export default class extends React.Component {
   }
 
   render() {
-    console.log('background page render')
+    // console.log('background page render')
 
     return (
       <div>
