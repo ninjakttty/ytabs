@@ -1,9 +1,39 @@
 import React from 'react'
 import icon from '../../img/icon-128.png'
-import List from '../components/List.react'
+// import List from '../components/List.react'
 import  * as Chrome from '../storage'
 import { Button, Icon } from 'semantic-ui-react'
 import { saveTabs, removeItem, openLink } from '../storage'
+import {List} from 'semantic-ui-react'
+
+
+
+const LinkListItem = (props) => {
+  const { url, favIconUrl, title, id } = props
+  const openThis = () => openLink(url).then(removeItem(id))
+
+  return (
+    <div style={{ marginBottom: '10px', cursor: 'pointer' }} onClick={openThis} >
+        [id :{id} ]
+        {title}
+        <p style={{ fontSize: '12px' }}>
+          {url}
+        </p>
+      </div>
+  )
+}
+
+const LinkList = (props) => {
+  const {urls } = props
+
+  return (
+    <List.List>
+      {urls.map( site => <LinkListItem {...site} />)}
+    </List.List>
+  )
+}
+
+
 
 export default class extends React.Component {
   constructor(props) {
@@ -46,10 +76,13 @@ export default class extends React.Component {
         Counter: {this.state.counter}
 
         {lists.map( (item) =>
-          <div>
-            things  {item[0]}
+          <List>
+            <List.Item>{item[0]}</List.Item>
+            <List.Item>
+                <LinkList urls={item[1]} />
+            </List.Item>
 
-          </div> )
+          </List>)
         }
 
       </div>

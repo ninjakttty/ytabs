@@ -32,8 +32,6 @@ const getTabGroups = () => {
   return new Promise((resolve, reject) => {
     chrome.storage.local.get(null, items => {
       if (chrome.runtime.error) { reject(chrome.runtime.error) }
-
-
       // resolve(Object.entries(items))
       resolve(items)
     })
