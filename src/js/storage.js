@@ -34,7 +34,8 @@ const getTabGroups = () => {
       if (chrome.runtime.error) { reject(chrome.runtime.error) }
 
 
-      resolve(Object.entries(items))
+      // resolve(Object.entries(items))
+      resolve(items)
     })
   })
 }
