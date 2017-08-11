@@ -25,8 +25,7 @@ export default class extends React.Component {
   render() {
     const { url, favIconUrl, title, id } = this.props
     const openThis = () => {
-      openLink(url)
-      removeItem(id)
+      openLink(url).then(removeItem(id))
     }
 
     return (

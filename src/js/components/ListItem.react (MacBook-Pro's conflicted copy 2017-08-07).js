@@ -25,7 +25,7 @@ export default class extends React.Component {
   render() {
     const { url, favIconUrl, title, id, index } = this.props
     const openThis = () => {
-      openLink(url)
+      openLink(url).then( ()=>{console.log('fuck you im eating')})
       removeItem(id)
     }
     const zebraClassName = index % 2 ? 'even' : 'odd'

@@ -31,15 +31,9 @@ export default class extends React.Component {
   render() {
     return (
       <div>
-        <div>
-          <Button onClick={this.saveAll}>Save All tabs</Button>
-        </div>
-        <div>
-          <Button onClick={this.goToTab}>Go to tab page</Button>
-        </div>
-        <div>
-          <Button onClick={this.goToPopup}>Go to popup page</Button>
-        </div>
+        <div style={{marginBottom: 6, backgroundColor: '#efefef' }} > <Button  size="large"   onClick={this.goToTab}>Go to tab page</Button> </div>
+        <div style={{marginBottom: 6}} > <Button size="mini"  onClick={this.saveAll}>Save All tabs</Button> </div>
+        <div style={{marginBottom: 6}} > <Button size="medium"   onClick={this.goToPopup}>Go to popup page</Button> </div>
       </div>
     )
   }

@@ -1,5 +1,5 @@
 const saveTabs = tabs => {
-  console.log('tab  saveTabs!!', tabs)
+  console.info('tab  saveTabs!!', tabs)
   return new Promise((resolve, reject) => {
     chrome.storage.local.set({ data: tabs }, () => {
       if (chrome.runtime.error) {
@@ -14,12 +14,12 @@ const saveTabs = tabs => {
   //   })
   // chrome.runtime.sendMessage({greeting: 'hello', payload: tabs},
   //         (response) => {
-  //             // console.log(response.farewell , response)
+  //             // console.info(response.farewell , response)
   // })
 }
 // const makeRequest = async () => {s
 const getTabs = id => {
-  // console.log('getTabs id', id)
+  // console.info('getTabs id', id)
 
   return new Promise((resolve, reject) => {
     chrome.storage.local.get('data', items => {
@@ -32,10 +32,10 @@ const getTabs = id => {
 
 const removeItem = currentId => {
   chrome.storage.sync.get('data', ({ data }) => {
-    // console.log('id , currentId', data.id, currentId)
+    // console.info('id , currentId', data.id, currentId)
 
     const filteredTabs = data.filter(({ id }) => id !== currentId)
-    // console.log('filteredTabs', currentId.id)
+    // console.info('filteredTabs', currentId.id)
 
     return saveTabs(filteredTabs)
   })
