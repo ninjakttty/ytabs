@@ -1,10 +1,8 @@
 const saveTabs = tabs => {
-  console.log('tab  saveTabs!!', tabs)
+  console.info('saveTabs =>', tabs)
   return new Promise((resolve, reject) => {
-    chrome.storage.sync.set({ data: tabs }, () => {
-      if (chrome.runtime.error) {
-        reject('runtime storage error')
-      }
+    chrome.storage.local.set({ data: tabs }, () => {
+      if (chrome.runtime.error) {        reject('runtime storage error')      }
       resolve()
     })
   })
@@ -17,28 +15,57 @@ const saveTabs = tabs => {
   //             // console.log(response.farewell , response)
   // })
 }
-// const makeRequest = async () => {s
-const getTabs = id => {
-  console.log('getTabs id', id)
+
+const saveTabGroup = tabs => {
+  // console.log('saveTabGroup =>', tabs)
+  const time = new Date().toISOString()
 
   return new Promise((resolve, reject) => {
-    chrome.storage.sync.get('data', items => {
+    chrome.storage.local.set({ [time]: tabs }, () => {
+      if (chrome.runtime.error) { reject(chrome.runtime.error) }
+      resolve()
+    })
+  })
+}
+
+const getTabGroups = () => {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.get(null, items => {
+      if (chrome.runtime.error) { reject(chrome.runtime.error) }
+
+
+      // resolve(Object.entries(items))
+      resolve(items)
+    })
+  })
+}
+
+const getTabs = id => {
+  console.info('getTabs id', id)
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.get('data', items => {
       if (!chrome.runtime.error) {
-        resolve(items)
+        resolve(items.data)
       }
     })
   })
 }
 
 const removeItem = currentId => {
-  chrome.storage.sync.get('data', ({ data }) => {
+  chrome.storage.local.get('data', ({ data }) => {
+    console.info('removeItem data, currentId', data, currentId)
     const filteredTabs = data.filter(({ id }) => id !== currentId)
+    console.info('filteredTabs', filteredTabs)
     return saveTabs(filteredTabs)
   })
 }
 
 const openLink = url => {
-  chrome.tabs.create({ url: url, active: false })
+  return new Promise((resolve, reject) => {
+    chrome.tabs.create({ url: url, active: false }, resolve() )
+  })
+
+
 }
 
-export { saveTabs, getTabs, removeItem, openLink }
+export { saveTabs, getTabs, removeItem, openLink , saveTabGroup, getTabGroups}

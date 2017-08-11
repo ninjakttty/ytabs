@@ -10,20 +10,20 @@ export default class extends React.Component {
   }
 
   componentWillMount() {
-    getTabs('yuri').then(items => {
-      console.info('componentWillMount', items)
+    getTabs('yuri').then(items => items.data).then(items => {
+      // console.log('componentWillMount', items)
       this.setState({ items: items })
     })
   }
 
   componentDidMount() {
     chrome.storage.onChanged.addListener(() => {
-      getTabs('yuri').then(items => this.setState({ items: items }))
+      getTabs('yuri').then(items => items.data).then(items => this.setState({ items: items }))
     })
   }
 
   render() {
-    console.info('background page render')
+    // console.log('background page render')
 
     return (
       <div>
