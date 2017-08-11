@@ -23,12 +23,12 @@ const LinkListItem = (props) => {
   )
 }
 
-const LinkList = (props) => {
+const UrlList = (props) => {
   const {urls } = props
 
   return (
     <List.List>
-      {urls.map( site => <LinkListItem {...site} />)}
+      {urls.map( site => <LinkListItem key={site.id} {...site} />)}
     </List.List>
   )
 }
@@ -38,7 +38,7 @@ const LinkList = (props) => {
 export default class extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { items: [], list: [1,2,3] }
+    this.state = { lists: [] }
   }
 
   componentWillMount() {
@@ -56,7 +56,8 @@ export default class extends React.Component {
 
   render() {
     console.info('background page render')
-    const {lists} = this.state
+    let {lists} = this.state
+
 
     return (
       <div>
@@ -79,7 +80,7 @@ export default class extends React.Component {
           <List>
             <List.Item>{item[0]}</List.Item>
             <List.Item>
-                <LinkList urls={item[1]} />
+                <UrlList urls={item[1]} />
             </List.Item>
 
           </List>)
