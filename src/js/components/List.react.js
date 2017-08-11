@@ -56,26 +56,6 @@ export default class extends React.Component {
 
 
 
-        {/* DEBUGGGER */}
-
-
-        <Button
-          icon
-          size="mini"
-          onClick={() => {
-            chrome.tabs.query({ currentWindow: true }, tabs => {
-              getTabGroups(tabs).then(  (items)=>{
-                console.log('tab group got', items)
-              } )
-            })
-          }}
-        >
-        load all tabs
-        </Button>
-
-
-
-
 
 
 
