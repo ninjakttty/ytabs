@@ -1,36 +1,10 @@
 import React from 'react'
 import icon from '../../img/icon-128.png'
-// import List from '../components/List.react'
 import * as Chrome from '../storage'
 import { Button, Icon } from 'semantic-ui-react'
 import { saveTabs, removeItem, openLink } from '../storage'
 import { List, Header } from 'semantic-ui-react'
-
-const LinkListItem = props => {
-  const { url, favIconUrl, title, id } = props
-  const openThis = () => openLink(url).then(removeItem(id))
-
-  return (
-    <div style={{ marginBottom: '10px', cursor: 'pointer' }} onClick={openThis}>
-      [id :{id} ]
-      {title}
-      <p style={{ fontSize: '12px' }}>{url}</p>
-    </div>
-  )
-}
-
-const UrlList = props => {
-  const { urls, tabGroup } = props
-
-  return (
-    <List.List>
-      <List.Header>
-        {tabGroup}
-      </List.Header>
-      {urls.map(site => <LinkListItem key={site.id} {...site} />)}
-    </List.List>
-  )
-}
+import { UrlList } from '../components/UrlList.react'
 
 export default class extends React.Component {
   constructor(props) {
@@ -69,7 +43,7 @@ export default class extends React.Component {
             /* chrome.tabs.query(queryOptions, tabs => Chrome.saveTabGroup(tabs)) */
           }}
         >
-          <Icon name="home" />Save All Tabs
+          <Icon name="home" />Save All Tabs on This Page
         </Button>
         <Button
           icon
