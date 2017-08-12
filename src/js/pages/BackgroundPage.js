@@ -48,10 +48,11 @@ export default class extends React.Component {
     })
   }
 
-  componentDidMount() {
-    chrome.storage.onChanged.addListener(() => {
-      Chrome.getTabs('yuri').then(items => this.setState({ items: items }))
-    })
+  componentWillMount() {
+      Chrome.getTabGroups().then( items => this.setState({ lists: Object.entries(items) }) )
+    // chrome.storage.onChanged.addListener(() => {
+    //   Chrome.getTabs('yuri').then(items => this.setState({ items: items }))
+    // })
   }
 
   render() {
