@@ -2,7 +2,9 @@ const saveTabs = tabs => {
   console.info('saveTabs =>', tabs)
   return new Promise((resolve, reject) => {
     chrome.storage.local.set({ data: tabs }, () => {
-      if (chrome.runtime.error) {        reject('runtime storage error')      }
+      if (chrome.runtime.error) {
+        reject('runtime storage error')
+      }
       resolve()
     })
   })
@@ -16,14 +18,21 @@ const saveTabs = tabs => {
   // })
 }
 
+const filterChrome = str => !/^chrome-extension.*/.test(str.url)
+
 const saveTabGroup = tabs => {
   // console.log('saveTabGroup =>', tabs)
+
+  tabs = tabs.filter(filterChrome)
+
   const time = new Date().toISOString()
 
   return new Promise((resolve, reject) => {
     chrome.storage.local.set({ [time]: tabs }, () => {
-      if (chrome.runtime.error) { reject(chrome.runtime.error) }
-      resolve()
+      if (chrome.runtime.error) {
+        reject(chrome.runtime.error)
+      }
+      resolve(tabs)
     })
   })
 }
@@ -31,7 +40,9 @@ const saveTabGroup = tabs => {
 const getTabGroups = () => {
   return new Promise((resolve, reject) => {
     chrome.storage.local.get(null, items => {
-      if (chrome.runtime.error) { reject(chrome.runtime.error) }
+      if (chrome.runtime.error) {
+        reject(chrome.runtime.error)
+      }
       // resolve(Object.entries(items))
       resolve(items)
     })
@@ -60,10 +71,8 @@ const removeItem = currentId => {
 
 const openLink = url => {
   return new Promise((resolve, reject) => {
-    chrome.tabs.create({ url: url, active: false }, resolve() )
+    chrome.tabs.create({ url: url, active: false }, resolve())
   })
-
-
 }
 
-export { saveTabs, getTabs, removeItem, openLink , saveTabGroup, getTabGroups}
+export { saveTabs, getTabs, removeItem, openLink, saveTabGroup, getTabGroups }
