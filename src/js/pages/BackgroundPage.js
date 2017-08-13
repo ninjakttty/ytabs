@@ -58,7 +58,7 @@ export default class extends React.Component {
         </Button>
         Counter: {this.state.counter}
         {lists.map(item =>
-          <List>
+          <List key={item[0]}>
             <List.Item>
               <UrlList urls={item[1]} tabGroup={item[0]} />
             </List.Item>
