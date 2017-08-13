@@ -71,16 +71,18 @@ const getTabs = id => {
 }
 
 const removeFromTabGroup = groupId => tabId => {
-  console.log(`removing ${tabId} from ${groupId}`)
-  chrome.storage.local.get(groupId, data => {
-    console.log('data', data[groupId])
-    const arr = data[groupId].filter(item => item.id !== tabId)
-    console.log('filtered data', arr)
-    updateTabGroup(groupId, arr)
-    //   // console.info('removeItem data, currentId', data, currentId)
-    //   // const filteredTabs = data.filter(({ id }) => id !== currentId)
-    //   // console.info('filteredTabs', filteredTabs)
-    //   // return saveTabs(filteredTabs)
+  console.info(`removing ${tabId} from ${groupId}`)
+
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.get(groupId, data => {
+      if (chrome.runtime.error) {
+        reject(chrome.runtime.error)
+      }
+      console.info('data', data[groupId])
+      const arr = data[groupId].filter(item => item.id !== tabId)
+      console.info('filtered data', arr)
+      arr.length === 0 ? removeTabGroup(groupId) : updateTabGroup(groupId, arr)
+    })
   })
 }
 
