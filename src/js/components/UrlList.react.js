@@ -1,7 +1,7 @@
 import React from 'react'
 import { List, Header } from 'semantic-ui-react'
 import { saveTabs, removeItem, openLink, removeFromTabGroup } from '../storage'
-
+import { titleDate } from '../date'
 import { TabButtons } from './URLListButtons.react'
 
 const LinkListItem = props => {
@@ -23,7 +23,7 @@ const UrlList = props => {
   return (
     <List.List>
       <List.Header>
-        {tabGroup}
+        {titleDate(tabGroup)}
         <TabButtons {...props} />
       </List.Header>
       {urls.map(site => <LinkListItem key={site.id} {...site} removeItem={removeFromThisTabGroup} />)}
