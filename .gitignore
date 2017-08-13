@@ -1,5 +1,6 @@
 build/
 yarn.lock
+test_data*
 
 # Logs
 logs
