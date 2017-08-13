@@ -1,9 +1,11 @@
 import React from 'react'
 import { List, Header } from 'semantic-ui-react'
-import { saveTabs, removeItem, openLink } from '../storage'
+import { saveTabs, removeItem, openLink, removeFromTabGroup } from '../storage'
+
+import { TabButtons } from './URLListButtons.react'
 
 const LinkListItem = props => {
-  const { url, favIconUrl, title, id } = props
+  const { url, favIconUrl, title, id, removeItem } = props
   const openThis = () => openLink(url).then(removeItem(id))
 
   return (
@@ -17,13 +19,14 @@ const LinkListItem = props => {
 
 const UrlList = props => {
   const { urls, tabGroup } = props
-
+  const removeFromThisTabGroup = removeFromTabGroup(tabGroup)
   return (
     <List.List>
       <List.Header>
         {tabGroup}
+        <TabButtons {...props} />
       </List.Header>
-      {urls.map(site => <LinkListItem key={site.id} {...site} />)}
+      {urls.map(site => <LinkListItem key={site.id} {...site} removeItem={removeFromThisTabGroup} />)}
     </List.List>
   )
 }

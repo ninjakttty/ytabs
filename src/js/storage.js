@@ -18,12 +18,22 @@ const saveTabs = tabs => {
   // })
 }
 
+const updateTabGroup = (groupId, tabGroup) => {
+  const tabs = tabGroup.filter(filterChrome)
+
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.set({ [groupId]: tabs }, () => {
+      chrome.runtime.error ? reject(chrome.runtime.error) : resolve(tabs)
+    })
+  })
+}
+
 const filterChrome = str => !/^chrome-extension.*/.test(str.url)
 
-const saveTabGroup = tabs => {
+const saveTabGroup = tabGroup => {
   // console.log('saveTabGroup =>', tabs)
 
-  tabs = tabs.filter(filterChrome)
+  const tabs = tabGroup.filter(filterChrome)
 
   const time = new Date().toISOString()
 
@@ -60,6 +70,20 @@ const getTabs = id => {
   })
 }
 
+const removeFromTabGroup = groupId => tabId => {
+  console.log(`removing ${tabId} from ${groupId}`)
+  chrome.storage.local.get(groupId, data => {
+    console.log('data', data[groupId])
+    const arr = data[groupId].filter(item => item.id !== tabId)
+    console.log('filtered data', arr)
+    updateTabGroup(groupId, arr)
+    //   // console.info('removeItem data, currentId', data, currentId)
+    //   // const filteredTabs = data.filter(({ id }) => id !== currentId)
+    //   // console.info('filteredTabs', filteredTabs)
+    //   // return saveTabs(filteredTabs)
+  })
+}
+
 const removeItem = currentId => {
   chrome.storage.local.get('data', ({ data }) => {
     console.info('removeItem data, currentId', data, currentId)
@@ -71,8 +95,24 @@ const removeItem = currentId => {
 
 const openLink = url => {
   return new Promise((resolve, reject) => {
-    chrome.tabs.create({ url: url, active: false }, resolve())
+    chrome.tabs.create({ url: url, active: false }, () => {
+      chrome.runtime.error ? reject(chrome.runtime.error) : resolve()
+    })
   })
 }
 
-export { saveTabs, getTabs, removeItem, openLink, saveTabGroup, getTabGroups }
+const removeTabGroup = id => {
+  console.log('removeTabGroup id', id)
+
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.remove(id, () => {
+      console.log('item removed')
+      if (chrome.runtime.error) {
+        reject(chrome.runtime.error)
+      }
+      resolve()
+    })
+  })
+}
+
+export { removeFromTabGroup, saveTabs, getTabs, removeItem, openLink, saveTabGroup, getTabGroups, removeTabGroup }

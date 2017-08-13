@@ -21,9 +21,9 @@ export default class extends React.Component {
 
   componentWillMount() {
     Chrome.getTabGroups().then(items => this.setState({ lists: Object.entries(items) }))
-    // chrome.storage.onChanged.addListener(() => {
-    //   Chrome.getTabs('yuri').then(items => this.setState({ items: items }))
-    // })
+    chrome.storage.onChanged.addListener(() => {
+      Chrome.getTabGroups().then(items => this.setState({ lists: Object.entries(items) }))
+    })
   }
 
   render() {
@@ -58,7 +58,7 @@ export default class extends React.Component {
         </Button>
         Counter: {this.state.counter}
         {lists.map(item =>
-          <List>
+          <List key={item[0]}>
             <List.Item>
               <UrlList urls={item[1]} tabGroup={item[0]} />
             </List.Item>
