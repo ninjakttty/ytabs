@@ -76,23 +76,16 @@ const openLink = url => {
 }
 
 const removeTabGroup = id => {
-  console.log('removeing id', id)
+  console.log('removeTabGroup id', id)
 
   return new Promise((resolve, reject) => {
-    // chrome.storage.local.remove(id, () => {
-    //   console.log('item removed')
-    //   if (chrome.runtime.error) {
-    //     reject(chrome.runtime.error)
-    //   }
-    //   resolve()
-    // })
-    // chrome.storage.local.get(null, items => {
-    //   if (chrome.runtime.error) {
-    //     reject(chrome.runtime.error)
-    //   }
-    //   // resolve(Object.entries(items))
-    //   resolve(items)
-    // })
+    chrome.storage.local.remove(id, () => {
+      console.log('item removed')
+      if (chrome.runtime.error) {
+        reject(chrome.runtime.error)
+      }
+      resolve()
+    })
   })
 }
 
