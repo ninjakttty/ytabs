@@ -2,6 +2,8 @@ import React from 'react'
 import { List, Header } from 'semantic-ui-react'
 import { saveTabs, removeItem, openLink } from '../storage'
 
+import { TabButtons } from './URLListButtons.react'
+
 const LinkListItem = props => {
   const { url, favIconUrl, title, id } = props
   const openThis = () => openLink(url).then(removeItem(id))
@@ -22,6 +24,7 @@ const UrlList = props => {
     <List.List>
       <List.Header>
         {tabGroup}
+        <TabButtons {...props} />
       </List.Header>
       {urls.map(site => <LinkListItem key={site.id} {...site} />)}
     </List.List>
