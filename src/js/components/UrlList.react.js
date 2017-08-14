@@ -23,6 +23,7 @@ const UrlList = props => {
   return (
     <List.List>
       <List.Header>
+        <span style={{ color: '#5a5a5a', fontSize: 10}}>({urls.length}) &nbsp; </span>
         {titleDate(tabGroup)}
         <TabButtons {...props} />
       </List.Header>
