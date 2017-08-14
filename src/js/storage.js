@@ -31,14 +31,12 @@ const updateTabGroup = (groupId, tabGroup) => {
 const filterChrome = str => !/^chrome-extension.*/.test(str.url)
 
 const saveTabGroup = tabGroup => {
-  // console.log('saveTabGroup =>', tabs)
-
   const tabs = tabGroup.filter(filterChrome)
 
-  const time = new Date().toISOString()
+  const now = new Date().toISOString()
 
   return new Promise((resolve, reject) => {
-    chrome.storage.local.set({ [time]: tabs }, () => {
+    chrome.storage.local.set({ [now]: tabs }, () => {
       if (chrome.runtime.error) {
         reject(chrome.runtime.error)
       }
@@ -59,13 +57,14 @@ const getTabGroups = () => {
   })
 }
 
-const getTabs = id => {
-  console.info('getTabs id', id)
+const getTabs = groupId => {
+  console.info('groupId', groupId)
   return new Promise((resolve, reject) => {
-    chrome.storage.local.get('data', items => {
-      if (!chrome.runtime.error) {
-        resolve(items.data)
+    chrome.storage.local.get(groupId, items => {
+      if (chrome.runtime.error) {
+        reject(chrome.runtime.error)
       }
+      resolve(items[groupId])
     })
   })
 }
@@ -95,7 +94,7 @@ const removeItem = currentId => {
   })
 }
 
-const openLink = url => {
+const openLink = (url, options) => {
   return new Promise((resolve, reject) => {
     chrome.tabs.create({ url: url, active: false }, () => {
       chrome.runtime.error ? reject(chrome.runtime.error) : resolve()
