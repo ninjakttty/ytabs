@@ -12,12 +12,12 @@ export default class extends React.Component {
     this.state = { lists: [] }
   }
 
-  componentWillMount() {
-    Chrome.getTabs('yuri').then(items => {
-      console.info('componentWillMount', items)
-      this.setState({ counter: 0, lists: [] })
-    })
-  }
+  // componentWillMount() {
+  //   Chrome.getTabs('yuri').then(items => {
+  //     console.info('componentWillMount', items)
+  //     this.setState({ counter: 0, lists: [] })
+  //   })
+  // }
 
   componentWillMount() {
     Chrome.getTabGroups().then(items => this.setState({ lists: Object.entries(items) }))
