@@ -1,12 +1,13 @@
 import React from 'react'
 import { Button } from 'semantic-ui-react'
 import * as Storage from '../storage'
-import { openLink } from '../storage'
 
 const removeGroup = id => () => Storage.removeTabGroup(id)
 
-const restoreGroup = id => () => {
-  console.log('restoring group', id)
+const restoreGroup = id => async () => {
+  const sites = await Storage.getTabs(id)
+  const proms = sites.map(site => Storage.openLink(site.url))
+  Promise.all(proms).then(Storage.removeTabGroup(id))
 }
 
 const TabButtons = props => {
