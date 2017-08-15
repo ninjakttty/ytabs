@@ -39,7 +39,7 @@ export default class extends React.Component {
     let { lists } = this.state
     return (
       <div>
-        <Button.Group size="mini">
+        <Button.Group size="mini" style={{ marginRight: 10 }}>
           <Button
             icon="save"
             content="Save All Tabs on This Page"
@@ -53,7 +53,7 @@ export default class extends React.Component {
 
           <Button
             icon="external share"
-            content="Restore This Tab Group"
+            content="test"
             onClick={() => {
               Chrome.getTabGroups().then(items => {
                 this.setState({ counter: this.state.counter + 1, lists: Object.entries(items) })
@@ -61,18 +61,17 @@ export default class extends React.Component {
             }}
           />
         </Button.Group>
-        Sort:
         <Button.Group size="mini">
           <Button
             active={!this.state.desc}
             icon="chevron circle up"
-            content="Asc"
+            content="Sort Asc"
             onClick={() => this.setState({ lists: this.state.lists.sort(ascDateSort), desc: false })}
           />
           <Button
             active={this.state.desc}
             icon="chevron circle down"
-            content="Desc"
+            content="Sort Desc"
             onClick={() => this.setState({ lists: this.state.lists.sort(descDateSort), desc: true })}
           />
         </Button.Group>
