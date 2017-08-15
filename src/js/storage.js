@@ -36,8 +36,9 @@ const uniqSites = (prev, curr) => {
 
 const saveTabGroup = tabGroup => {
   console.log('tabGroup', tabGroup)
-  let tabs
-  // tabs = tabGroup.map(item => ({
+  let tabs = tabGroup
+
+  // tabs = tabs.map(item => ({
   //   id: item.id,
   //   title: item.title,
   //   pinned: item.pinned,
