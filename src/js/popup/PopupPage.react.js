@@ -1,7 +1,8 @@
 import React from 'react'
 import icon from '../../img/icon-128.png'
 import { Button } from 'semantic-ui-react'
-import { saveTabs } from '../storage'
+import { saveTabGroup } from '../storage'
+import * as Chrome from '../storage'
 
 export default class extends React.Component {
   constructor(props) {
@@ -12,6 +13,10 @@ export default class extends React.Component {
   }
 
   saveAll() {
+    const queryOptions = { currentWindow: true }
+    chrome.tabs.query(queryOptions, tabs => {
+      Chrome.saveTabGroup(tabs).then(Chrome.closeCurrentTabs)
+    })
     // console.log('save all...')
     // const queryOptions = { currentWindow: true }
     // chrome.tabs.query(queryOptions, (tabs) => saveTabs(tabs))
@@ -31,20 +36,21 @@ export default class extends React.Component {
   render() {
     return (
       <div>
-        <div style={{ marginBottom: 6, backgroundColor: '#efefef' }}>
-          {' '}<Button size="large" onClick={this.goToTab}>
-            Go to tab page
-          </Button>{' '}
-        </div>
         <div style={{ marginBottom: 6 }}>
-          {' '}<Button size="mini" onClick={this.saveAll}>
+          <Button size="large" onClick={this.saveAll}>
             Save All tabs
-          </Button>{' '}
+          </Button>
         </div>
         <div style={{ marginBottom: 6 }}>
-          {' '}<Button size="medium" onClick={this.goToPopup}>
+          <Button size="mini" onClick={this.goToTab}>
+            Go to tab page
+          </Button>
+        </div>
+
+        <div style={{ marginBottom: 6 }}>
+          <Button size="medium" onClick={this.goToPopup}>
             Go to popup page
-          </Button>{' '}
+          </Button>
         </div>
       </div>
     )

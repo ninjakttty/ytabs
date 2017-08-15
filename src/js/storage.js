@@ -15,15 +15,13 @@
 //   // })
 // }
 
-const updateTabGroup = (groupId, tabGroup) => {
-  const tabs = tabGroup.filter(filterChrome)
-
-  return new Promise((resolve, reject) => {
+const updateTabGroup = (groupId, tabGroup) =>
+  new Promise((resolve, reject) => {
+    const tabs = tabGroup.filter(filterChrome)
     chrome.storage.local.set({ [groupId]: tabs }, () => {
       chrome.runtime.error ? reject(chrome.runtime.error) : resolve(tabs)
     })
   })
-}
 
 const filterChrome = str => !/^chrome-extension.*/.test(str.url)
 
@@ -34,23 +32,22 @@ const uniqSites = (prev, curr) => {
   return prev
 }
 
-const saveTabGroup = tabGroup => {
-  console.log('tabGroup', tabGroup)
-  let tabs = tabGroup
+const saveTabGroup = tabGroup =>
+  new Promise((resolve, reject) => {
+    console.log('tabGroup', tabGroup)
+    let tabs = tabGroup
 
-  // tabs = tabs.map(item => ({
-  //   id: item.id,
-  //   title: item.title,
-  //   pinned: item.pinned,
-  //   url: item.url,
-  // }))
+    // tabs = tabs.map(item => ({
+    //   id: item.id,
+    //   title: item.title,
+    //   pinned: item.pinned,
+    //   url: item.url,
+    // }))
 
-  tabs = tabs.reduce(uniqSites, [])
-  tabs = tabs.filter(filterChrome)
+    tabs = tabs.reduce(uniqSites, [])
+    tabs = tabs.filter(filterChrome)
 
-  const now = new Date().toISOString()
-
-  return new Promise((resolve, reject) => {
+    const now = new Date().toISOString()
     chrome.storage.local.set({ [now]: tabs }, () => {
       if (chrome.runtime.error) {
         reject(chrome.runtime.error)
@@ -58,7 +55,6 @@ const saveTabGroup = tabGroup => {
       resolve(tabs)
     })
   })
-}
 
 const getTabGroups = () => {
   return new Promise((resolve, reject) => {
@@ -117,6 +113,27 @@ const openLink = (url, options) => {
   })
 }
 
+const closeTabs = sites => {
+  return new Promise((resolve, reject) => {
+    const ids = sites.map(site => site.id)
+    console.log('closeTabs', ids)
+
+    chrome.tabs.remove(ids, () => {
+      chrome.runtime.error ? reject(chrome.runtime.error) : resolve()
+    })
+  })
+}
+const closeCurrentTabs = () =>
+  new Promise((resolve, reject) => {
+    chrome.tabs.query({ currentWindow: true }, tabs => {
+      tabs = tabs.filter(filterChrome)
+      const ids = tabs.map(site => site.id)
+      chrome.tabs.remove(ids, () => {
+        chrome.runtime.error ? reject(chrome.runtime.error) : resolve()
+      })
+    })
+  })
+
 const removeTabGroup = id => {
   console.log('removeTabGroup id', id)
 
@@ -131,4 +148,15 @@ const removeTabGroup = id => {
   })
 }
 
-export { removeFromTabGroup, saveTabs, getTabs, removeItem, openLink, saveTabGroup, getTabGroups, removeTabGroup }
+export {
+  removeFromTabGroup,
+  closeCurrentTabs,
+  // saveTabs,
+  getTabs,
+  removeItem,
+  openLink,
+  saveTabGroup,
+  getTabGroups,
+  removeTabGroup,
+  closeTabs,
+}
