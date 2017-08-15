@@ -24,7 +24,7 @@ const LinkListItem = props => {
     <div style={{ marginBottom: '10px', cursor: 'pointer' }} onClick={openThis}>
       <div>
         <Image src={favIconUrl} height={18} shape="circular" inline spaced />
-        <span style={{ fontSize: '18px' }}>
+        <span style={{ fontSize: '14px', fontWeight: 'bold' }}>
           {title}
         </span>
       </div>
