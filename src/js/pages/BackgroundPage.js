@@ -1,29 +1,24 @@
 import React from 'react'
 import icon from '../../img/icon-128.png'
 import * as Chrome from '../storage'
-import { Button, Icon } from 'semantic-ui-react'
+import { Button, Icon, List, Header } from 'semantic-ui-react'
 import { saveTabs, removeItem, openLink } from '../storage'
-import { List, Header } from 'semantic-ui-react'
 import { UrlList } from '../components/UrlList.react'
 
 const descDateSort = (a, b) => {
+  // prettier-ignore
   switch (true) {
-    case new Date(a[0]) > new Date(b[0]):
-      return -1
-    case new Date(a[0]) === new Date(b[0]):
-      return 0
-    case new Date(a[0]) < new Date(b[0]):
-      return 1
+    case new Date(a[0]) > new Date(b[0]): return -1
+    case new Date(a[0]) === new Date(b[0]): return 0
+    case new Date(a[0]) < new Date(b[0]): return 1
   }
 }
 const ascDateSort = (a, b) => {
+  // prettier-ignore
   switch (true) {
-    case new Date(a[0]) < new Date(b[0]):
-      return -1
-    case new Date(a[0]) === new Date(b[0]):
-      return 0
-    case new Date(a[0]) > new Date(b[0]):
-      return 1
+    case new Date(a[0]) < new Date(b[0]): return -1
+    case new Date(a[0]) === new Date(b[0]): return 0
+    case new Date(a[0]) > new Date(b[0]): return 1
   }
 }
 
@@ -33,13 +28,6 @@ export default class extends React.Component {
     this.state = { lists: [] }
   }
 
-  // componentWillMount() {
-  //   Chrome.getTabs('yuri').then(items => {
-  //     console.info('componentWillMount', items)
-  //     this.setState({ counter: 0, lists: [] })
-  //   })
-  // }
-
   componentWillMount() {
     Chrome.getTabGroups().then(items => this.setState({ lists: Object.entries(items).sort(descDateSort) }))
     chrome.storage.onChanged.addListener(() => {
@@ -48,9 +36,7 @@ export default class extends React.Component {
   }
 
   render() {
-    // console.info('background page render')
     let { lists } = this.state
-    // Chrome.saveTabGroup()
     return (
       <div>
         <Button
@@ -61,7 +47,6 @@ export default class extends React.Component {
             chrome.tabs.query(queryOptions, tabs => {
               Chrome.saveTabGroup(tabs)
             })
-            /* chrome.tabs.query(queryOptions, tabs => Chrome.saveTabGroup(tabs)) */
           }}
         >
           <Icon name="home" />Save All Tabs on This Page
@@ -78,8 +63,16 @@ export default class extends React.Component {
           <Icon name="home" />Restore This Tab Group
         </Button>
         <Button.Group size="mini" labeled>
-          <Button icon="chevron circle up" content="Sort Asc" onClick={() => console.log('clicked')} />
-          <Button icon="chevron circle down" content="Sort Desc" onClick={() => console.log('clicked')} />
+          <Button
+            icon="chevron circle up"
+            content="Sort Asc"
+            onClick={() => this.setState({ lists: this.state.lists.sort(ascDateSort) })}
+          />
+          <Button
+            icon="chevron circle down"
+            content="Sort Desc"
+            onClick={() => this.setState({ lists: this.state.lists.sort(descDateSort) })}
+          />
         </Button.Group>
         Counter: {this.state.counter}
         {lists.map(item =>
