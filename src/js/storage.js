@@ -8,10 +8,6 @@ const saveTabs = tabs => {
       resolve()
     })
   })
-
-  // chrome.storage.set({tabs: tabs}, () => {
-  //     message('Settings saved')
-  //   })
   // chrome.runtime.sendMessage({greeting: 'hello', payload: tabs},
   //         (response) => {
   //             // console.log(response.farewell , response)

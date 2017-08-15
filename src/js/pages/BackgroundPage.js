@@ -50,6 +50,7 @@ export default class extends React.Component {
               })
             }}
           />
+          <Button content="Open Options Page" onClick={chrome.runtime.openOptionsPage} />
         </Button.Group>
         <Button.Group size="mini">
           <Button
@@ -65,6 +66,7 @@ export default class extends React.Component {
             onClick={() => this.setState({ lists: this.state.lists.sort(descDateSort), desc: true })}
           />
         </Button.Group>
+        Counter: {this.state.counter}
         {lists.map(item =>
           <List key={item[0]}>
             <List.Item>
