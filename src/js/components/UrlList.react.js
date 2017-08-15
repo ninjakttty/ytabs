@@ -4,9 +4,21 @@ import { saveTabs, removeItem, openLink, removeFromTabGroup } from '../storage'
 import { titleDate } from '../date'
 import { TabButtons } from './URLListButtons.react'
 
+const noop = () => {}
 const LinkListItem = props => {
   const { url, favIconUrl, title, id, removeItem } = props
-  const openThis = () => openLink(url).then(removeItem(id))
+
+  const openThis = e => {
+    const { metaKey, altKey, ctrlKey, shiftKey } = e
+    openLink(url)
+      .then(() => {
+        if (metaKey) throw 'meta'
+      })
+      .then(() => {
+        removeItem(id)
+      })
+      .catch(noop)
+  }
 
   return (
     <div style={{ marginBottom: '10px', cursor: 'pointer' }} onClick={openThis}>
@@ -23,7 +35,9 @@ const UrlList = props => {
   return (
     <List.List>
       <List.Header>
-        <span style={{ color: '#5a5a5a', fontSize: 10}}>({urls.length}) &nbsp; </span>
+        <span style={{ color: '#5a5a5a', fontSize: 10 }}>
+          ({urls.length}) &nbsp;{' '}
+        </span>
         {titleDate(tabGroup)}
         <TabButtons {...props} />
       </List.Header>
