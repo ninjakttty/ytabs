@@ -22,6 +22,13 @@ const ascDateSort = (a, b) => {
   }
 }
 
+const handleClick = () => {
+  const queryOptions = { currentWindow: true }
+  chrome.tabs.query(queryOptions, tabs => {
+    Chrome.saveTabGroup(tabs).then(Chrome.closeCurrentTabs)
+  })
+}
+
 export default class extends React.Component {
   constructor(props) {
     super(props)
@@ -40,16 +47,7 @@ export default class extends React.Component {
     return (
       <div>
         <Button.Group size="mini" style={{ marginRight: 10 }}>
-          <Button
-            icon="save"
-            content="Save All Tabs on This Browser"
-            onClick={() => {
-              const queryOptions = { currentWindow: true }
-              chrome.tabs.query(queryOptions, tabs => {
-                Chrome.saveTabGroup(tabs)
-              })
-            }}
-          />
+          <Button icon="save" content="Save All Tabs From This Window" onClick={handleClick} />
           <Button content="Open Options Page" onClick={chrome.runtime.openOptionsPage} />
         </Button.Group>
         <Button.Group size="mini">
