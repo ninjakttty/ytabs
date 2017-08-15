@@ -38,22 +38,11 @@ export default class extends React.Component {
   render() {
     return (
       <div>
-        <div style={{ marginBottom: 6 }}>
-          <Button size="large" onClick={this.saveAll}>
-            Save All tabs
-          </Button>
-        </div>
-        <div style={{ marginBottom: 6 }}>
-          <Button size="mini" onClick={this.goToTab}>
-            Go to tab page
-          </Button>
-        </div>
-
-        <div style={{ marginBottom: 6 }}>
-          <Button size="medium" onClick={this.goToPopup}>
-            Go to popup page
-          </Button>
-        </div>
+        <Button.Group vertical style={{ float: 'right' }}>
+          <Button onClick={this.saveAll} content="Save All tabs" style={{ marginBottom: 6 }} />
+          <Button onClick={this.goToTab} content="Go to tab page" style={{ marginBottom: 6 }} />
+          <Button onClick={this.goToPopup} content="Go to popup page" style={{ marginBottom: 6 }} />
+        </Button.Group>
       </div>
     )
   }
