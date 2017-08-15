@@ -1,7 +1,7 @@
 import React from 'react'
 import icon from '../../img/icon-128.png'
 import * as Chrome from '../storage'
-import { Button, Icon, List, Header } from 'semantic-ui-react'
+import { Button, List, Header } from 'semantic-ui-react'
 import { saveTabs, removeItem, openLink } from '../storage'
 import { UrlList } from '../components/UrlList.react'
 
@@ -25,7 +25,7 @@ const ascDateSort = (a, b) => {
 export default class extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { lists: [] }
+    this.state = { lists: [], desc: true }
   }
 
   componentWillMount() {
@@ -39,39 +39,41 @@ export default class extends React.Component {
     let { lists } = this.state
     return (
       <div>
-        <Button
-          icon
-          size="mini"
-          onClick={() => {
-            const queryOptions = { currentWindow: true }
-            chrome.tabs.query(queryOptions, tabs => {
-              Chrome.saveTabGroup(tabs)
-            })
-          }}
-        >
-          <Icon name="home" />Save All Tabs on This Page
-        </Button>
-        <Button
-          icon
-          size="mini"
-          onClick={() => {
-            Chrome.getTabGroups().then(items => {
-              this.setState({ counter: this.state.counter + 1, lists: Object.entries(items) })
-            })
-          }}
-        >
-          <Icon name="home" />Restore This Tab Group
-        </Button>
-        <Button.Group size="mini" labeled>
+        <Button.Group size="mini">
           <Button
+            icon="save"
+            content="Save All Tabs on This Page"
+            onClick={() => {
+              const queryOptions = { currentWindow: true }
+              chrome.tabs.query(queryOptions, tabs => {
+                Chrome.saveTabGroup(tabs)
+              })
+            }}
+          />
+
+          <Button
+            icon="external share"
+            content="Restore This Tab Group"
+            onClick={() => {
+              Chrome.getTabGroups().then(items => {
+                this.setState({ counter: this.state.counter + 1, lists: Object.entries(items) })
+              })
+            }}
+          />
+        </Button.Group>
+        Sort:
+        <Button.Group size="mini">
+          <Button
+            active={!this.state.desc}
             icon="chevron circle up"
-            content="Sort Asc"
-            onClick={() => this.setState({ lists: this.state.lists.sort(ascDateSort) })}
+            content="Asc"
+            onClick={() => this.setState({ lists: this.state.lists.sort(ascDateSort), desc: false })}
           />
           <Button
+            active={this.state.desc}
             icon="chevron circle down"
-            content="Sort Desc"
-            onClick={() => this.setState({ lists: this.state.lists.sort(descDateSort) })}
+            content="Desc"
+            onClick={() => this.setState({ lists: this.state.lists.sort(descDateSort), desc: true })}
           />
         </Button.Group>
         Counter: {this.state.counter}
