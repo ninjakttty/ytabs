@@ -6,6 +6,27 @@ import { saveTabs, removeItem, openLink } from '../storage'
 import { List, Header } from 'semantic-ui-react'
 import { UrlList } from '../components/UrlList.react'
 
+const descDateSort = (a, b) => {
+  switch (true) {
+    case new Date(a[0]) > new Date(b[0]):
+      return -1
+    case new Date(a[0]) === new Date(b[0]):
+      return 0
+    case new Date(a[0]) < new Date(b[0]):
+      return 1
+  }
+}
+const ascDateSort = (a, b) => {
+  switch (true) {
+    case new Date(a[0]) < new Date(b[0]):
+      return -1
+    case new Date(a[0]) === new Date(b[0]):
+      return 0
+    case new Date(a[0]) > new Date(b[0]):
+      return 1
+  }
+}
+
 export default class extends React.Component {
   constructor(props) {
     super(props)
@@ -20,9 +41,9 @@ export default class extends React.Component {
   // }
 
   componentWillMount() {
-    Chrome.getTabGroups().then(items => this.setState({ lists: Object.entries(items) }))
+    Chrome.getTabGroups().then(items => this.setState({ lists: Object.entries(items).sort(descDateSort) }))
     chrome.storage.onChanged.addListener(() => {
-      Chrome.getTabGroups().then(items => this.setState({ lists: Object.entries(items) }))
+      Chrome.getTabGroups().then(items => this.setState({ lists: Object.entries(items).sort(descDateSort) }))
     })
   }
 
@@ -56,6 +77,10 @@ export default class extends React.Component {
         >
           <Icon name="home" />Restore This Tab Group
         </Button>
+        <Button.Group size="mini" labeled>
+          <Button icon="chevron circle up" content="Sort Asc" onClick={() => console.log('clicked')} />
+          <Button icon="chevron circle down" content="Sort Desc" onClick={() => console.log('clicked')} />
+        </Button.Group>
         Counter: {this.state.counter}
         {lists.map(item =>
           <List key={item[0]}>
@@ -68,20 +93,3 @@ export default class extends React.Component {
     )
   }
 }
-
-// .then(items => {
-//   //console.log('items', items)
-//   items.forEach(thing => {
-//     {
-//       /* console.log('thing.id', thing.id, thing.url) */
-//     }
-//     if (thing.url.match(/chrome:/)) {
-//       console.log(thing.url, thing.url.match(/chrome:/))
-//       console.log('match', thing.url)
-
-//     }
-//     {
-//       /* chrome.tabs.discard(thing.id) */
-//     }
-//   })
-// })

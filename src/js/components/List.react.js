@@ -3,17 +3,15 @@ import icon from '../../img/icon-128.png'
 import List from '../components/List.react'
 import ListItem from './ListItem.react'
 import { Button, Icon } from 'semantic-ui-react'
-import { saveTabs, openLink, removeItem, saveTabGroup , getTabGroups} from '../storage'
+import { saveTabs, openLink, removeItem, saveTabGroup, getTabGroups } from '../storage'
 
 export default class extends React.Component {
   constructor(props) {
     super(props)
     this.onRestoreTabGroup = this.onRestoreTabGroup.bind(this)
     this.onDelete = this.onDelete.bind(this)
-    // this.saveAll = this.saveAll.bind(this)
   }
   onRestoreTabGroup(sites) {
-    // const { urls } = this
     console.info('onRestoreTabGroup', sites)
 
     console.log('sites', sites)
@@ -53,12 +51,6 @@ export default class extends React.Component {
         >
           <Icon name="home" />Save All Tabs
         </Button>
-
-
-
-
-
-
         {urls.map(site => <ListItem {...site} key={site.id} />)}
       </div>
     )
