@@ -1,18 +1,19 @@
-const saveTabs = tabs => {
-  console.info('saveTabs =>', tabs)
-  return new Promise((resolve, reject) => {
-    chrome.storage.local.set({ data: tabs }, () => {
-      if (chrome.runtime.error) {
-        reject('runtime storage error')
-      }
-      resolve()
-    })
-  })
-  // chrome.runtime.sendMessage({greeting: 'hello', payload: tabs},
-  //         (response) => {
-  //             // console.log(response.farewell , response)
-  // })
-}
+// const saveTabs = tabs => {
+//   console.log('saveTabs =>', tabs)
+
+//   return new Promise((resolve, reject) => {
+//     chrome.storage.local.set({ data: tabs }, () => {
+//       if (chrome.runtime.error) {
+//         reject('runtime storage error')
+//       }
+//       resolve()
+//     })
+//   })
+//   // chrome.runtime.sendMessage({greeting: 'hello', payload: tabs},
+//   //         (response) => {
+//   //             // console.log(response.farewell , response)
+//   // })
+// }
 
 const updateTabGroup = (groupId, tabGroup) => {
   const tabs = tabGroup.filter(filterChrome)
@@ -26,8 +27,25 @@ const updateTabGroup = (groupId, tabGroup) => {
 
 const filterChrome = str => !/^chrome-extension.*/.test(str.url)
 
+const uniqSites = (prev, curr) => {
+  if (!prev.some(item => item.url === curr.url)) {
+    prev.push(curr)
+  }
+  return prev
+}
+
 const saveTabGroup = tabGroup => {
-  const tabs = tabGroup.filter(filterChrome)
+  console.log('tabGroup', tabGroup)
+  let tabs
+  // tabs = tabGroup.map(item => ({
+  //   id: item.id,
+  //   title: item.title,
+  //   pinned: item.pinned,
+  //   url: item.url,
+  // }))
+
+  tabs = tabs.reduce(uniqSites, [])
+  tabs = tabs.filter(filterChrome)
 
   const now = new Date().toISOString()
 
