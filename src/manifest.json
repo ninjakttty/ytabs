@@ -13,5 +13,5 @@
     "128": "icon-128.png"
   },
   "manifest_version": 2,
-  "content_security_policy": "script-src data: 'unsafe-inline' 'unsafe-eval' http://localhost:8097 object-src 'self'"
+  "content_security_policy": "script-src 'self' 'unsafe-eval' http://localhost:8097; object-src 'self'"
 }
