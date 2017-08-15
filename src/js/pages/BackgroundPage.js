@@ -42,21 +42,11 @@ export default class extends React.Component {
         <Button.Group size="mini" style={{ marginRight: 10 }}>
           <Button
             icon="save"
-            content="Save All Tabs on This Page"
+            content="Save All Tabs on This Browser"
             onClick={() => {
               const queryOptions = { currentWindow: true }
               chrome.tabs.query(queryOptions, tabs => {
                 Chrome.saveTabGroup(tabs)
-              })
-            }}
-          />
-
-          <Button
-            icon="external share"
-            content="test"
-            onClick={() => {
-              Chrome.getTabGroups().then(items => {
-                this.setState({ counter: this.state.counter + 1, lists: Object.entries(items) })
               })
             }}
           />
@@ -75,7 +65,6 @@ export default class extends React.Component {
             onClick={() => this.setState({ lists: this.state.lists.sort(descDateSort), desc: true })}
           />
         </Button.Group>
-        Counter: {this.state.counter}
         {lists.map(item =>
           <List key={item[0]}>
             <List.Item>
