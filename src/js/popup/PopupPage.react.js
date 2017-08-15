@@ -13,7 +13,7 @@ export default class extends React.Component {
 
   saveAll() {
     // console.log('save all...')
-    const queryOptions = { currentWindow: true }
+    // const queryOptions = { currentWindow: true }
     // chrome.tabs.query(queryOptions, (tabs) => saveTabs(tabs))
     // console.log(
     //   chrome.tabs.query(queryOptions, saveTabs)
@@ -31,9 +31,21 @@ export default class extends React.Component {
   render() {
     return (
       <div>
-        <div style={{marginBottom: 6, backgroundColor: '#efefef' }} > <Button  size="large"   onClick={this.goToTab}>Go to tab page</Button> </div>
-        <div style={{marginBottom: 6}} > <Button size="mini"  onClick={this.saveAll}>Save All tabs</Button> </div>
-        <div style={{marginBottom: 6}} > <Button size="medium"   onClick={this.goToPopup}>Go to popup page</Button> </div>
+        <div style={{ marginBottom: 6, backgroundColor: '#efefef' }}>
+          {' '}<Button size="large" onClick={this.goToTab}>
+            Go to tab page
+          </Button>{' '}
+        </div>
+        <div style={{ marginBottom: 6 }}>
+          {' '}<Button size="mini" onClick={this.saveAll}>
+            Save All tabs
+          </Button>{' '}
+        </div>
+        <div style={{ marginBottom: 6 }}>
+          {' '}<Button size="medium" onClick={this.goToPopup}>
+            Go to popup page
+          </Button>{' '}
+        </div>
       </div>
     )
   }
