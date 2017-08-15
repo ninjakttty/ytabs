@@ -15,7 +15,9 @@ export default class extends React.Component {
   saveAll() {
     const queryOptions = { currentWindow: true }
     chrome.tabs.query(queryOptions, tabs => {
-      Chrome.saveTabGroup(tabs).then(Chrome.closeCurrentTabs)
+      Chrome.saveTabGroup(tabs)
+        .then(Chrome.closeCurrentTabs)
+        .then(chrome.tabs.create({ url: chrome.extension.getURL('background.html') }))
     })
     // console.log('save all...')
     // const queryOptions = { currentWindow: true }
