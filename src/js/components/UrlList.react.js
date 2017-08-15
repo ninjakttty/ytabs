@@ -1,5 +1,5 @@
 import React from 'react'
-import { List, Header } from 'semantic-ui-react'
+import { List, Header, Image } from 'semantic-ui-react'
 import { saveTabs, removeItem, openLink, removeFromTabGroup } from '../storage'
 import { titleDate } from '../date'
 import { TabButtons } from './URLListButtons.react'
@@ -12,7 +12,7 @@ const LinkListItem = props => {
     const { metaKey, altKey, ctrlKey, shiftKey } = e
     openLink(url)
       .then(() => {
-        if (metaKey) throw 'meta'
+        if (metaKey) throw 'meta pressed'
       })
       .then(() => {
         removeItem(id)
@@ -22,6 +22,10 @@ const LinkListItem = props => {
 
   return (
     <div style={{ marginBottom: '10px', cursor: 'pointer' }} onClick={openThis}>
+      <div>
+        <Image src={favIconUrl} height={18} shape="circular" inline spaced />
+        <span>Username</span>
+      </div>
       [id :{id} ]
       {title}
       <p style={{ fontSize: '12px' }}>{url}</p>
