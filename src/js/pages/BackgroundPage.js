@@ -48,7 +48,7 @@ export default class extends React.Component {
       <div>
         <Button.Group size="mini" style={{ marginRight: 10 }}>
           <Button icon="save" content="Save All Tabs From This Window" onClick={handleClick} />
-          <Button content="Open Options Page" onClick={chrome.runtime.openOptionsPage} />
+          <Button content="Open Options Page" onClick={() => chrome.runtime.openOptionsPage()} />
         </Button.Group>
         <Button.Group size="mini">
           <Button
