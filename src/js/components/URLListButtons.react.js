@@ -4,10 +4,13 @@ import * as Storage from '../storage'
 
 const removeGroup = id => () => Storage.removeTabGroup(id)
 
-const restoreGroup = id => async () => {
+const restoreGroup = id => async e => {
+  const { metaKey, altKey, ctrlKey, shiftKey } = e
   const sites = await Storage.getTabs(id)
   const proms = sites.map(site => Storage.openLink(site.url))
-  Promise.all(proms).then(Storage.removeTabGroup(id))
+  if (!metaKey) {
+    Promise.all(proms).then(Storage.removeTabGroup(id))
+  }
 }
 
 const TabButtons = props => {
