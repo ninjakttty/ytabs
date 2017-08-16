@@ -23,7 +23,7 @@ const updateTabGroup = (groupId, tabGroup) =>
     })
   })
 
-const filterChrome = str => !/^chrome-extension.*/.test(str.url)
+const filterChrome = str => !/^chrome.*/.test(str.url)
 
 const uniqSites = (prev, curr) => {
   console.log(`should push to prev: ${curr.url}`, !prev.some(item => item.url === curr.url))
@@ -37,12 +37,12 @@ const saveTabGroup = tabGroup =>
   new Promise((resolve, reject) => {
     console.log('tabGroup', tabGroup)
     let tabs = tabGroup
-
     tabs = tabs.map(item => ({
       id: item.id,
       title: item.title,
       pinned: item.pinned,
       url: item.url,
+      favIconUrl: item.favIconUrl,
     }))
 
     console.log('tabs', tabs)
