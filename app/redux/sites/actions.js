@@ -28,7 +28,6 @@ function saveGroup(sites) {
   return { type: types.SAVE, payload }
 }
 
-
 // export function saveCurrentWindowTabs(payload) {
 //   console.log('actions ', payload)
 //   return () => {
@@ -46,14 +45,12 @@ export function saveCurrentWindowTabs() {
     chrome.tabs.query(queryOptions, (tabGroup) => {
       // console.log('tabGroup', tabGroup)
       let tabs = tabGroup
-      tabs = tabs.filter(filterChrome)
-                 .reduce(uniqSites, [])
-                 .map(item => ({
-                   id: item.id,
-                   title: item.title,
-                   url: item.url,
-                   favIconUrl: item.favIconUrl,
-                 }))
+      tabs = tabs.filter(filterChrome).reduce(uniqSites, []).map(item => ({
+        id: item.id,
+        title: item.title,
+        url: item.url,
+        favIconUrl: item.favIconUrl
+      }))
       // console.log('tabs', tabs)
       // console.log('tabs.reduce(uniqSites, [])', tabs.reduce(uniqSites, []))
       // tabs = tabs.reduce(uniqSites, [])
@@ -62,4 +59,8 @@ export function saveCurrentWindowTabs() {
       dispatch(saveGroup(tabs))
     })
   }
+}
+
+export function restoreItem(payload) {
+  return { type: types.INC, payload }
 }

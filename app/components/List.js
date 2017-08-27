@@ -20,7 +20,7 @@ const URLList = (props) => {
           }}
         />
       </List.Content>
-      {group.sites.map(item => <ListItem key={item.id} {...item} />)}
+      {group.sites.map(item => <ListItem key={item.id} {...item} group={group.name} />)}
     </List>
   )
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { List, Button, Icon } from 'semantic-ui-react'
+import { List, Button, Icon, Image } from 'semantic-ui-react'
 
 const CloseButton = (data) => {
   const { id } = data
@@ -17,17 +17,25 @@ const CloseButton = (data) => {
   )
 }
 
+const restoreItem = (id, gid) => () => {
+  console.log('restore item', id, `from group ${gid}`)
+}
+
 const ListItem = (props) => {
-  const { id, title, url } = props
+  const { id, title, url, group, favIconUrl } = props
+  const gid = group.split('name-')[1]
+  const restoreThis = restoreItem(id, gid)
 
   return (
-    <List.Item key={id} style={{ marginBottom: 8 }}>
+    <List.Item key={id} style={{ marginBottom: '10px', cursor: 'pointer' }} onClick={restoreThis}>
+      <Icon name="bars" />
+      <Image src={favIconUrl} height={18} shape="circular" inline spaced />
       <CloseButton {...props} />
-      <p style={{ fontWeight: 'bold', marginBottom: 0 }}>
+      <span style={{ fontSize: '14px', fontWeight: 'bold' }}>
         {title}
-      </p>
-      <p style={{ fontSize: 12 }}>
-        {url}
+      </span>
+      <p style={{ fontSize: '14px' }}>
+        [id :{id} ] {url}
       </p>
     </List.Item>
   )
