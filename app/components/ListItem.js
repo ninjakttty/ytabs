@@ -17,14 +17,19 @@ const CloseButton = (data) => {
   )
 }
 
-const restoreItem = (id, gid) => () => {
-  console.log('restore item', id, `from group ${gid}`)
+const restoreItem = (id, gid, url) => (e) => {
+  const { metaKey } = e /// altKey, ctrlKey, shiftKey
+  // console.log('restore item', id, `from group ${gid}, ${url}`)
+  chrome.tabs.create({ url, active: false })
+  if (!metaKey) {
+    console.log('im no meta your the meta')
+  }
 }
 
 const ListItem = (props) => {
   const { id, title, url, group, favIconUrl } = props
   const gid = group.split('name-')[1]
-  const restoreThis = restoreItem(id, gid)
+  const restoreThis = restoreItem(id, gid, url)
 
   return (
     <List.Item key={id} style={{ marginBottom: '10px', cursor: 'pointer' }} onClick={restoreThis}>
