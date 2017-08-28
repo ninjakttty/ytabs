@@ -1,4 +1,4 @@
-import * as actions from './constants'
+import * as actions from './actions'
 
 const initialState = []
 
@@ -23,12 +23,28 @@ export default function sitesReducer(state = initialState, action) {
         name: payload.name,
         sites: payload.sites,
         date: now
-
       }
       return [...state, obj]
+    }
+    case actions.REMOVE_ITEM: {
+      const { gid, id } = action.payload
+      const newState = [...state]
+      // console.log('reducer', action.payload)
+      // console.log('state', newState)
+
+      const groupIdx = newState.findIndex(item => item.name === `name-${gid}`)
+      console.log('state', state[groupIdx].sites.length)
+      console.log('newState', newState[groupIdx].sites.length)
+
+      const itemIdx = newState[groupIdx].sites.findIndex(item => item.id === id)
+      newState[groupIdx].sites.splice(itemIdx, 1) // mutate
+
+      console.log('state', state[groupIdx].sites.length)
+      console.log('newState', newState[groupIdx].sites.length)
+
+      return newState
     }
   }
 
   return state
 }
-

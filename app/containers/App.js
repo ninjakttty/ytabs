@@ -7,11 +7,11 @@ import Container from '../components/Container'
 
 // import Header from '../components/Header'
 // import MainSection from '../components/MainSection'
-import * as SitesActions from '../redux/sites/actions'
 // import '../containers/App.css'
 // import style from './App.css'
 // <div className={style.normal}>
 
+import * as SitesActions from '../redux/sites/actions'
 @connect(
   state => ({
     sites: state.sites
@@ -44,7 +44,6 @@ export default class App extends Component {
   render() {
     const { sites, actions } = this.props
     console.log('sites', sites)
-
 
     return (
       <div>

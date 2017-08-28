@@ -1,5 +1,7 @@
 import React from 'react'
 import { List, Button, Icon, Image } from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import * as SitesActions from '../redux/sites/actions'
 
 const CloseButton = (data) => {
   const { id } = data
@@ -17,19 +19,21 @@ const CloseButton = (data) => {
   )
 }
 
-const restoreItem = (id, gid, url) => (e) => {
+const restoreItem = ({ id, gid, url, removeItem }) => (e) => {
   const { metaKey } = e /// altKey, ctrlKey, shiftKey
-  // console.log('restore item', id, `from group ${gid}, ${url}`)
+  console.log('restore item', id, `from group ${gid}, ${url}`)
+
   chrome.tabs.create({ url, active: false })
   if (!metaKey) {
     console.log('im no meta your the meta')
+    removeItem({ id, gid })
   }
 }
 
 const ListItem = (props) => {
-  const { id, title, url, group, favIconUrl } = props
+  const { id, title, url, group, favIconUrl, removeItem } = props
   const gid = group.split('name-')[1]
-  const restoreThis = restoreItem(id, gid, url)
+  const restoreThis = restoreItem({ id, gid, url, removeItem })
 
   return (
     <List.Item key={id} style={{ marginBottom: '10px', cursor: 'pointer' }} onClick={restoreThis}>
@@ -46,4 +50,4 @@ const ListItem = (props) => {
   )
 }
 
-export default ListItem
+export default connect(state => ({ sites: state.sites }), SitesActions)(ListItem)

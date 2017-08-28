@@ -1,4 +1,8 @@
-import * as types from './constants'
+export const TOOT = 'TOOT'
+export const INC = 'INC'
+export const DEC = 'DEC'
+export const SAVE = 'SAVE'
+export const REMOVE_ITEM = 'REMOVE_ITEM'
 
 const uniqSites = (prev, curr) => {
   // console.log(`should push to prev: ${curr.url}`, !prev.some(item => item.url === curr.url))
@@ -11,11 +15,11 @@ const uniqSites = (prev, curr) => {
 const filterChrome = str => !/^chrome.*/.test(str.url)
 
 export function incSite(payload) {
-  return { type: types.INC, payload }
+  return { type: INC, payload }
 }
 
 export function decSite(payload) {
-  return { type: types.DEC, payload }
+  return { type: DEC, payload }
 }
 
 function saveGroup(sites) {
@@ -25,17 +29,17 @@ function saveGroup(sites) {
     sites
   }
   console.log('save SITE TOO', payload)
-  return { type: types.SAVE, payload }
+  return { type: SAVE, payload }
 }
 
 // export function saveCurrentWindowTabs(payload) {
 //   console.log('actions ', payload)
 //   return () => {
 //     console.log('in')
-//     return { type: types.TOOT, payload }
+//     return { type: TOOT, payload }
 //   }
 //   // return new Promise((resolve) => {
-//   //   resolve({ type: types.TOOT, payload })
+//   //   resolve({ type: TOOT, payload })
 //   // })
 // }
 
@@ -61,6 +65,6 @@ export function saveCurrentWindowTabs() {
   }
 }
 
-export function restoreItem(payload) {
-  return { type: types.INC, payload }
+export function removeItem(payload) {
+  return { type: REMOVE_ITEM, payload }
 }
