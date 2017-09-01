@@ -3,13 +3,10 @@ import { List, Button, Icon, Image } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import * as SitesActions from '../redux/sites/actions'
 
-const CloseButton = (data) => {
-  const { id } = data
+const CloseButton = ({ id, gid, removeItem }) => {
   const removeThis = (e) => {
     e.stopPropagation()
-    console.log('close', id)
-
-    // removeItem(id)
+    removeItem({ id, gid })
   }
 
   return (
@@ -25,21 +22,20 @@ const restoreItem = ({ id, gid, url, removeItem }) => (e) => {
 
   chrome.tabs.create({ url, active: false })
   if (!metaKey) {
-    console.log('im no meta your the meta')
     removeItem({ id, gid })
   }
 }
 
 const ListItem = (props) => {
   const { id, title, url, group, favIconUrl, removeItem } = props
-  const gid = group.split('name-')[1]
+  const gid = group
   const restoreThis = restoreItem({ id, gid, url, removeItem })
 
   return (
     <List.Item key={id} style={{ marginBottom: '10px', cursor: 'pointer' }} onClick={restoreThis}>
       <Icon name="bars" />
       <Image src={favIconUrl} height={18} shape="circular" inline spaced />
-      <CloseButton {...props} />
+      <CloseButton {...props} gid={gid} />
       <span style={{ fontSize: '14px', fontWeight: 'bold' }}>
         {title}
       </span>

@@ -3,6 +3,7 @@ export const INC = 'INC'
 export const DEC = 'DEC'
 export const SAVE = 'SAVE'
 export const REMOVE_ITEM = 'REMOVE_ITEM'
+export const REMOVE_GROUP = 'REMOVE_GROUP'
 
 const uniqSites = (prev, curr) => {
   // console.log(`should push to prev: ${curr.url}`, !prev.some(item => item.url === curr.url))
@@ -25,7 +26,7 @@ export function decSite(payload) {
 function saveGroup(sites) {
   const now = new Date().toISOString()
   const payload = {
-    name: `name-${now}`,
+    name: now,
     sites
   }
   console.log('save SITE TOO', payload)
@@ -67,4 +68,11 @@ export function saveCurrentWindowTabs() {
 
 export function removeItem(payload) {
   return { type: REMOVE_ITEM, payload }
+}
+
+export function removeGroup(name) {
+  const payload = {
+    gid: name
+  }
+  return { type: REMOVE_GROUP, payload }
 }

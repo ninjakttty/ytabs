@@ -53,8 +53,8 @@ export default class App extends Component {
         <div>
           <Button>Click Here</Button>
         </div>
-        <p onClick={this.inc}>inc</p>
-        <p onClick={this.dec}>dec</p>
+        {/* <p onClick={this.inc}>inc</p>
+        <p onClick={this.dec}>dec</p> */}
         <Container sites={sites} />
       </div>
     )
