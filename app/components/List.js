@@ -35,6 +35,14 @@ class URLList extends Component {
               }
             }}
           />
+          <Button
+            size="mini"
+            basic
+            color="red"
+            icon="external"
+            content="Delete This Tab Group"
+            onClick={() => removeGroup(group.name)}
+          />
         </List.Content>
         {group.sites.map(item => <ListItem key={item.id} group={group.name} {...item} />)}
       </List>
