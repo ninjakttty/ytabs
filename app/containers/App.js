@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
-import { Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import Buttons from '../components/ButtonBar'
 import Container from '../components/Container'
@@ -49,9 +48,6 @@ export default class App extends Component {
       <div>
         <div>
           <Buttons name="frank" actions={actions} />
-        </div>
-        <div>
-          <Button>Click Here</Button>
         </div>
         {/* <p onClick={this.inc}>inc</p>
         <p onClick={this.dec}>dec</p> */}

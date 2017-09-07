@@ -39,7 +39,7 @@ class URLList extends Component {
             size="mini"
             basic
             color="red"
-            icon="external"
+            icon="delete"
             content="Delete This Tab Group"
             onClick={() => removeGroup(group.name)}
           />

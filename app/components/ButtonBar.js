@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react'
 import { Button } from 'semantic-ui-react'
+import SortButtons from './SortButtons'
 
 const Buttons = (props) => {
   const { saveCurrentWindowTabs } = props.actions
@@ -20,6 +21,7 @@ const Buttons = (props) => {
           }
         }}
       />
+      <SortButtons />
     </div>
   )
 }
