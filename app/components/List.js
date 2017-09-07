@@ -16,9 +16,7 @@ class URLList extends Component {
     return (
       <List>
         <List.Header style={{ color: 'rgb(56, 56, 56)' }}>
-          <span>
-            {group.sites.length} tabs saved on
-          </span>
+          <span>{group.sites.length} tabs saved on</span>
           {moment(group.name).format('MMMM Do h:mm a')}
         </List.Header>
         <List.Content>
@@ -26,12 +24,15 @@ class URLList extends Component {
             size="mini"
             icon="external"
             content="Restore Tabs"
-            onClick={() => {
+            onClick={(e) => {
+              const { metaKey } = e /// altKey, ctrlKey, shiftKey
               group.sites.forEach((item) => {
                 const { url } = item
                 chrome.tabs.create({ url, active: false })
               })
-              removeGroup(group.name)
+              if (!metaKey) {
+                removeGroup(group.name)
+              }
             }}
           />
         </List.Content>

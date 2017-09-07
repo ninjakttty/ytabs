@@ -8,7 +8,17 @@ const Buttons = (props) => {
       <Button
         icon="save"
         content="Save All Tabs From This Window.."
-        onClick={saveCurrentWindowTabs}
+        onClick={(e) => {
+          const { metaKey } = e
+          saveCurrentWindowTabs()
+          if (!metaKey) {
+            chrome.tabs.query({ currentWindow: true }, (tabs) => {
+              const filterChrome = str => !/^chrome.*/.test(str.url)
+              const ids = tabs.filter(filterChrome).map(site => site.id)
+              chrome.tabs.remove(ids)
+            })
+          }
+        }}
       />
     </div>
   )
