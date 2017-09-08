@@ -20,6 +20,23 @@ export default function sitesReducer(state = initialState, action) {
       console.log('red toot', action.payload)
       return state
     }
+
+    case actions.SORT_ASC: {
+      return [...state].sort((a, b) => {
+        if (a.name < b.name) return -1
+        if (a.name > b.name) return 1
+        return 0
+      })
+    }
+
+    case actions.SORT_DESC: {
+      return [...state].sort((a, b) => {
+        if (a.name > b.name) return -1
+        if (a.name < b.name) return 1
+        return 0
+      })
+    }
+
     case actions.SAVE: {
       const { payload } = action
       const now = new Date().toISOString()

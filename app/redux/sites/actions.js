@@ -1,6 +1,8 @@
 export const TOOT = 'TOOT'
 export const INC = 'INC'
 export const SORT = 'SORT'
+export const SORT_ASC = 'SORT_ASC'
+export const SORT_DESC = 'SORT_DESC'
 export const DEC = 'DEC'
 export const SAVE = 'SAVE'
 export const REMOVE_ITEM = 'REMOVE_ITEM'

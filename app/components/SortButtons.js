@@ -17,9 +17,9 @@ const SortButtons = (props) => {
         <Button
           icon="sort numeric ascending"
           content="Sort Asc"
-          disabled={sortAsc}
           active={sortAsc}
           onClick={() => {
+            //disabled={sortAsc}
             //console.log('props', props)
             //console.log('click asc')
             changeSort('asc')
@@ -28,9 +28,9 @@ const SortButtons = (props) => {
         <Button
           icon="sort numeric descending"
           content="Sort Dec"
-          disabled={!sortAsc}
           active={!sortAsc}
           onClick={() => {
+            // disabled={!sortAsc}
             // console.log('props', props)
             //   console.log('click des')
             changeSort('dec')
