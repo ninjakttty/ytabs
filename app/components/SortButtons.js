@@ -22,7 +22,7 @@ const SortButtons = (props) => {
           onClick={() => {
             console.log('props', props)
             console.log('click asc')
-            toggleSort()
+            toggleSort(sortType)
           }}
         />
         <Button
@@ -33,7 +33,7 @@ const SortButtons = (props) => {
           onClick={() => {
             console.log('props', props)
             console.log('click des')
-            toggleSort()
+            toggleSort(sortType)
           }}
         />
       </div>
