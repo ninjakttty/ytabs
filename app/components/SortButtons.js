@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import * as OptionActions from '../redux/options/actions'
 
 const SortButtons = (props) => {
-  console.log(props)
-  const { toggleSort } = props
+  // console.log(props)
+  const { changeSort } = props
   const { sortAsc } = props.options
   //   const { saveCurrentWindowTabs } = props.actions
   const sortType = sortAsc ? 'ASC' : 'DEC'
@@ -20,9 +20,9 @@ const SortButtons = (props) => {
           disabled={sortAsc}
           active={sortAsc}
           onClick={() => {
-            console.log('props', props)
-            console.log('click asc')
-            toggleSort(sortType)
+            //console.log('props', props)
+            //console.log('click asc')
+            changeSort('asc')
           }}
         />
         <Button
@@ -31,9 +31,9 @@ const SortButtons = (props) => {
           disabled={!sortAsc}
           active={!sortAsc}
           onClick={() => {
-            console.log('props', props)
-            console.log('click des')
-            toggleSort(sortType)
+            // console.log('props', props)
+            //   console.log('click des')
+            changeSort('dec')
           }}
         />
       </div>

@@ -42,7 +42,7 @@ export default class App extends Component {
 
   render() {
     const { sites, actions } = this.props
-    console.log('sites', sites)
+    // console.log('sites', sites)
 
     return (
       <div>

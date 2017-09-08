@@ -16,8 +16,10 @@ class URLList extends Component {
     return (
       <List>
         <List.Header style={{ color: 'rgb(56, 56, 56)' }}>
-          <span>{group.sites.length} tabs saved on</span>
-          {moment(group.name).format('MMMM Do h:mm a')}
+          <span>{group.sites.length} tabs saved on: </span>
+          <span style={{ fontWeight: 'bold' }}>
+            {moment(group.name).format('YYYY MMMM Do h:mm a ')}
+          </span>
         </List.Header>
         <List.Content>
           <Button
