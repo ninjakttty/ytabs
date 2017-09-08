@@ -1,20 +1,46 @@
 import React, { PropTypes, Component } from 'react'
 import { Button } from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import * as OptionActions from '../redux/options/actions'
 
-const Buttons = props => (
+const SortButtons = (props) => {
+  console.log(props)
+  const { toggleSort } = props
+  const { sortAsc } = props.options
   //   const { saveCurrentWindowTabs } = props.actions
-  <Button.Group>
-    <Button
-      icon="sort numeric ascending"
-      content="Sort Asc"
-      onClick={() => console.log('click asc')}
-    />
-    <Button
-      icon="sort numeric descending"
-      content="Sort Dec"
-      onClick={() => console.log('click des')}
-    />
-  </Button.Group>
-)
+  const sortType = sortAsc ? 'ASC' : 'DEC'
 
-export default Buttons
+  return (
+    <span>
+      SortAsc is {sortAsc.toString()} for real
+      <div>
+        <Button
+          icon="sort numeric ascending"
+          content="Sort Asc"
+          disabled={sortAsc}
+          active={sortAsc}
+          onClick={() => {
+            console.log('props', props)
+            console.log('click asc')
+            toggleSort()
+          }}
+        />
+        <Button
+          icon="sort numeric descending"
+          content="Sort Dec"
+          disabled={!sortAsc}
+          active={!sortAsc}
+          onClick={() => {
+            console.log('props', props)
+            console.log('click des')
+            toggleSort()
+          }}
+        />
+      </div>
+    </span>
+  )
+}
+
+// export default SortButtons
+
+export default connect(state => ({ options: state.options }), OptionActions)(SortButtons)

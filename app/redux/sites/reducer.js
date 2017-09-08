@@ -16,6 +16,10 @@ export default function sitesReducer(state = initialState, action) {
       console.log('red toot', action.payload)
       return state
     }
+    case actions.SORT: {
+      console.log('red toot', action.payload)
+      return state
+    }
     case actions.SAVE: {
       const { payload } = action
       const now = new Date().toISOString()
