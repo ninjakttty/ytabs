@@ -1,5 +1,8 @@
 export const TOOT = 'TOOT'
 export const INC = 'INC'
+export const SORT = 'SORT'
+export const SORT_ASC = 'SORT_ASC'
+export const SORT_DESC = 'SORT_DESC'
 export const DEC = 'DEC'
 export const SAVE = 'SAVE'
 export const REMOVE_ITEM = 'REMOVE_ITEM'
@@ -50,12 +53,15 @@ export function saveCurrentWindowTabs() {
     chrome.tabs.query(queryOptions, (tabGroup) => {
       // console.log('tabGroup', tabGroup)
       let tabs = tabGroup
-      tabs = tabs.filter(filterChrome).reduce(uniqSites, []).map(item => ({
-        id: item.id,
-        title: item.title,
-        url: item.url,
-        favIconUrl: item.favIconUrl
-      }))
+      tabs = tabs
+        .filter(filterChrome)
+        .reduce(uniqSites, [])
+        .map(item => ({
+          id: item.id,
+          title: item.title,
+          url: item.url,
+          favIconUrl: item.favIconUrl
+        }))
       // console.log('tabs', tabs)
       // console.log('tabs.reduce(uniqSites, [])', tabs.reduce(uniqSites, []))
       // tabs = tabs.reduce(uniqSites, [])

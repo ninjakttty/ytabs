@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react'
 import { Button } from 'semantic-ui-react'
+import SortButtons from './SortButtons'
 
 const Buttons = (props) => {
   const { saveCurrentWindowTabs } = props.actions
@@ -8,8 +9,19 @@ const Buttons = (props) => {
       <Button
         icon="save"
         content="Save All Tabs From This Window.."
-        onClick={saveCurrentWindowTabs}
+        onClick={(e) => {
+          const { metaKey } = e
+          saveCurrentWindowTabs()
+          if (!metaKey) {
+            chrome.tabs.query({ currentWindow: true }, (tabs) => {
+              const filterChrome = str => !/^chrome.*/.test(str.url)
+              const ids = tabs.filter(filterChrome).map(site => site.id)
+              chrome.tabs.remove(ids)
+            })
+          }
+        }}
       />
+      <SortButtons />
     </div>
   )
 }

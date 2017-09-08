@@ -18,7 +18,7 @@ const CloseButton = ({ id, gid, removeItem }) => {
 
 const restoreItem = ({ id, gid, url, removeItem }) => (e) => {
   const { metaKey } = e /// altKey, ctrlKey, shiftKey
-  console.log('restore item', id, `from group ${gid}, ${url}`)
+  // console.log('restore item', id, `from group ${gid}, ${url}`)
 
   chrome.tabs.create({ url, active: false })
   if (!metaKey) {
@@ -36,9 +36,7 @@ const ListItem = (props) => {
       <Icon name="bars" />
       <Image src={favIconUrl} height={18} shape="circular" inline spaced />
       <CloseButton {...props} gid={gid} />
-      <span style={{ fontSize: '14px', fontWeight: 'bold' }}>
-        {title}
-      </span>
+      <span style={{ fontSize: '14px', fontWeight: 'bold' }}>{title}</span>
       <p style={{ fontSize: '14px' }}>
         [id :{id} ] {url}
       </p>
