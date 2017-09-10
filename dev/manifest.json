@@ -13,9 +13,11 @@
     "128": "img/icon-128.png"
   },
   "web_accessible_resources": ["inject.html"],
+  "options_page": "options.html",
   "background": {
     "page": "background.html"
   },
   "permissions": ["contextMenus", "management", "tabs", "storage"],
-  "content_security_policy": "default-src 'self'; script-src 'self' http://localhost:3000 https://localhost:3000 'unsafe-eval'; connect-src http://localhost:3000 https://localhost:3000; style-src * 'unsafe-inline' 'self' blob:; img-src data: *;  font-src data: *;"
+  "content_security_policy":
+    "default-src 'self'; script-src 'self' http://localhost:3000 https://localhost:3000 'unsafe-eval'; connect-src http://localhost:3000 https://localhost:3000; style-src * 'unsafe-inline' 'self' blob:; img-src data: *;  font-src data: *;"
 }

@@ -1,17 +1,18 @@
-const path = require('path');
-const webpack = require('webpack');
-const postCSSConfig = require('./postcss.config');
+const path = require('path')
+const webpack = require('webpack')
+const postCSSConfig = require('./postcss.config')
 
-const host = 'localhost';
-const port = 3000;
-const customPath = path.join(__dirname, './customPublicPath');
-const hotScript = 'webpack-hot-middleware/client?path=__webpack_hmr&dynamicPublicPath=true';
+const host = 'localhost'
+const port = 3000
+const customPath = path.join(__dirname, './customPublicPath')
+const hotScript = 'webpack-hot-middleware/client?path=__webpack_hmr&dynamicPublicPath=true'
 
 const baseDevConfig = () => ({
   devtool: 'eval-cheap-module-source-map',
   entry: {
     todoapp: [customPath, hotScript, path.join(__dirname, '../chrome/extension/todoapp')],
     background: [customPath, hotScript, path.join(__dirname, '../chrome/extension/background')],
+    options: [customPath, hotScript, path.join(__dirname, '../chrome/extension/options')],
     ytabs: [customPath, hotScript, path.join(__dirname, '../chrome/extension/ytabs')]
   },
   devMiddleware: {
@@ -31,7 +32,7 @@ const baseDevConfig = () => ({
     chunkFilename: '[id].chunk.js'
   },
   postcss() {
-    return postCSSConfig;
+    return postCSSConfig
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -68,17 +69,17 @@ const baseDevConfig = () => ({
       }
     ]
   }
-});
+})
 
-const injectPageConfig = baseDevConfig();
-injectPageConfig.entry = [customPath, path.join(__dirname, '../chrome/extension/inject')];
-delete injectPageConfig.hotMiddleware;
-delete injectPageConfig.module.loaders[0].query;
-injectPageConfig.plugins.shift(); // remove HotModuleReplacementPlugin
+const injectPageConfig = baseDevConfig()
+injectPageConfig.entry = [customPath, path.join(__dirname, '../chrome/extension/inject')]
+delete injectPageConfig.hotMiddleware
+delete injectPageConfig.module.loaders[0].query
+injectPageConfig.plugins.shift() // remove HotModuleReplacementPlugin
 injectPageConfig.output = {
   path: path.join(__dirname, '../dev/js'),
   filename: 'inject.bundle.js'
-};
-const appConfig = baseDevConfig();
+}
+const appConfig = baseDevConfig()
 
-module.exports = [injectPageConfig, appConfig];
+module.exports = [injectPageConfig, appConfig]
