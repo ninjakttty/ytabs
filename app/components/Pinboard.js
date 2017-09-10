@@ -32,8 +32,9 @@ class Pinboard extends Component {
             color: 'blue',
             labelPosition: 'right',
             icon: 'save',
-            content: 'Verify'
+            content: 'Save'
           }}
+          fluid
           defaultValue={currentKey}
           placeholder="Enter API key here"
           label="API Key"
