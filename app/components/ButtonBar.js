@@ -21,20 +21,17 @@ const Buttons = (props) => {
           }
         }}
       />
+      <Button
+        icon="settings"
+        content="Open Options Page"
+        onClick={(e) => {
+          console.log('options page')
+          chrome.tabs.create({ url: chrome.extension.getURL('options.html') })
+        }}
+      />
       <SortButtons />
     </div>
   )
 }
 
 export default Buttons
-
-/*
-    <Button.Group size="mini" style={{ marginRight: 10 }}>
-      <Button icon="save" content="Save All Tabs From This Window" onClick={saveCurrentWindowTabs} />
-      <Button content="Open Options Page" />
-    </Button.Group>
-    <Button.Group size="mini">
-      <Button active icon="sort numeric ascending" content="Sort Asc" />
-      <Button icon="sort numeric descending" content="Sort Desc" />
-    </Button.Group>
-*/
