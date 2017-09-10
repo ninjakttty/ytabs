@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react'
+import React from 'react'
 import { Button } from 'semantic-ui-react'
 import SortButtons from './SortButtons'
 
@@ -24,8 +24,7 @@ const Buttons = (props) => {
       <Button
         icon="settings"
         content="Open Options Page"
-        onClick={(e) => {
-          console.log('options page')
+        onClick={() => {
           chrome.tabs.create({ url: chrome.extension.getURL('options.html') })
         }}
       />
