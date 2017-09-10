@@ -1,9 +1,9 @@
 import * as siteActions from '../sites/actions'
 
 export const TOGGLE_SORT = 'TOGGLE_SORT'
+export const SAVE_PINBOARD_KEY = 'SAVE_PINBOARD_KEY'
 
 export function changeSort(payload) {
-  console.log('PPP  ', payload)
   return function (dispatch) {
     dispatch({ type: TOGGLE_SORT, payload })
     if (payload === 'asc') {
@@ -11,7 +11,10 @@ export function changeSort(payload) {
     } else {
       dispatch({ type: siteActions.SORT_DESC })
     }
-    // dispatch({ type: siteActions.SORT, payload })
   }
-  // return { type: TOGGLE_SORT, payload }
+}
+
+export function savePinboardKey(payload) {
+  console.log('savePinboardKey  ', payload)
+  return { type: SAVE_PINBOARD_KEY, payload }
 }

@@ -1,15 +1,20 @@
 import React, { Component } from 'react'
-import { Provider } from 'react-redux'
-import { Container, Header, Segment, Button, Divider } from 'semantic-ui-react'
+import { Provider, connect } from 'react-redux'
+import { Container, Header, Segment } from 'semantic-ui-react'
+import * as OptionActions from '../redux/options/actions'
+import Pinboard from '../components/Pinboard'
 
-export default class OptionsPage extends Component {
+class OptionsPage extends Component {
   render() {
-    const { store } = this.props
+    const { store, savePinboardKey } = this.props
+
     return (
       <Provider store={store}>
         <Container>
           <Header as="h2">Options Page</Header>
-          <Segment padded>Options 1</Segment>
+          <Segment padded>
+            <Pinboard saveKey={savePinboardKey} />
+          </Segment>
           <Segment padded>Options 2</Segment>
           <Segment padded>Options 3</Segment>
         </Container>
@@ -17,3 +22,5 @@ export default class OptionsPage extends Component {
     )
   }
 }
+
+export default connect(state => ({ options: state.options }), OptionActions)(OptionsPage)
