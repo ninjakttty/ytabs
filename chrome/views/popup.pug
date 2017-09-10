@@ -3,10 +3,11 @@ doctype html
 html
   head
     meta(charset='UTF-8')
-    title Redux TodoMVC Example (Popup)
+    title ytabs Popup
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css')
     style.
-      body { width: 500px; }
+      body { width: 250px; }
 
   body
     #root
-    script(src=env == 'prod' ? '/js/todoapp.bundle.js' : 'http://localhost:3000/js/todoapp.bundle.js')
+    script(src=env == 'prod' ? '/js/popup.bundle.js' : 'http://localhost:3000/js/popup.bundle.js')
