@@ -1,7 +1,8 @@
 import * as actions from './actions'
 
 const initialState = {
-  sortAsc: true
+  sortAsc: true,
+  pkey: ''
 }
 
 export default function sitesReducer(state = initialState, action) {
@@ -13,7 +14,8 @@ export default function sitesReducer(state = initialState, action) {
       return newState
     }
     case actions.SAVE_PINBOARD_KEY: {
-      return state
+      const { payload } = action
+      return { ...state, pkey: payload }
     }
   }
 

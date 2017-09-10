@@ -4,8 +4,9 @@ import { Input, Checkbox } from 'semantic-ui-react'
 class Pinboard extends Component {
   constructor(props, context) {
     super(props, context)
-    this.state = { key: '' }
+    this.state = { key: props.currentKey }
   }
+
   handleChange = (e, input) => {
     this.setState({ key: input.value })
   }
@@ -13,12 +14,14 @@ class Pinboard extends Component {
   save = () => {
     const { saveKey } = this.props
     const { key } = this.state
-    console.log('save', key)
     saveKey(key)
   }
 
   render() {
+    const { currentKey } = this.props
+
     return (
+      //TODO disable button if key is entered
       <div>
         <p>
           You can get the API token here <a href="https://pinboard.in/settings/password">here</a>
@@ -31,6 +34,8 @@ class Pinboard extends Component {
             icon: 'save',
             content: 'Verify'
           }}
+          defaultValue={currentKey}
+          placeholder="Enter API key here"
           label="API Key"
           onChange={this.handleChange}
         />

@@ -15,6 +15,5 @@ export function changeSort(payload) {
 }
 
 export function savePinboardKey(payload) {
-  console.log('savePinboardKey  ', payload)
   return { type: SAVE_PINBOARD_KEY, payload }
 }
