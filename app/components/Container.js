@@ -1,20 +1,11 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Container } from 'semantic-ui-react'
 import List from '../components/List'
-import { connect } from 'react-redux'
-import * as OptionActions from '../redux/options/actions'
 
-const ContainerExampleContainer = (props) => {
+const ContainerPage = (props) => {
   const { sites } = props
-  // console.log('props.options', props.options)
-
-  return (
-    <Container>
-      <p>boot to the head.</p>
-      {sites.map(group => <List key={group.name} group={group} />)}
-    </Container>
-  )
+  return <Container>{sites.map(group => <List key={group.name} group={group} />)}</Container>
 }
 
-export default connect(state => ({ options: state.options }))(ContainerExampleContainer)
-// export default ContainerExampleContainer
+export default connect(state => ({ options: state.options }))(ContainerPage)
