@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Root from '../../app/containers/Root'
+import OptionsPage from '../../app/containers/Options'
 import './todoapp.css'
 
 console.log('options app started')
@@ -11,5 +11,8 @@ chrome.storage.local.get('state', (obj) => {
 
   const createStore = require('../../app/store/configureStore')
 
-  ReactDOM.render(<Root store={createStore(initialState)} />, document.querySelector('#root'))
+  ReactDOM.render(
+    <OptionsPage store={createStore(initialState)} />,
+    document.querySelector('#root')
+  )
 })
