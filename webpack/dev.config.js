@@ -13,6 +13,7 @@ const baseDevConfig = () => ({
     todoapp: [customPath, hotScript, path.join(__dirname, '../chrome/extension/todoapp')],
     background: [customPath, hotScript, path.join(__dirname, '../chrome/extension/background')],
     options: [customPath, hotScript, path.join(__dirname, '../chrome/extension/options')],
+    popup: [customPath, hotScript, path.join(__dirname, '../chrome/extension/popup')],
     ytabs: [customPath, hotScript, path.join(__dirname, '../chrome/extension/ytabs')]
   },
   devMiddleware: {
@@ -61,11 +62,7 @@ const baseDevConfig = () => ({
       },
       {
         test: /\.css$/,
-        loaders: [
-          'style',
-          'css?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
-          'postcss'
-        ]
+        loaders: ['style', 'css?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]', 'postcss']
       }
     ]
   }
