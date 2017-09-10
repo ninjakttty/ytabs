@@ -21,7 +21,18 @@
     "no-console": 0,
     "default-case": 0,
     "semi": ["error", "never"],
-    "react/prop-types": 0
+    "react/prop-types": 0,
+    "max-len": [
+      "error",
+      160,
+      {
+        "ignoreTemplateLiterals": true,
+        "ignoreRegExpLiterals": true,
+        "ignoreComments": true,
+        "ignoreTrailingComments": true,
+        "ignoreUrls": true
+      }
+    ]
   },
   "plugins": ["react"]
 }
