@@ -20,8 +20,8 @@ export default function (initialState) {
   const store = createStore(rootReducer, initialState, enhancer)
 
   if (module.hot) {
-    module.hot.accept('../reducers', () => {
-      const nextRootReducer = require('../reducers')
+    module.hot.accept('./rootReducer', () => {
+      const nextRootReducer = require('./rootReducer')
 
       store.replaceReducer(nextRootReducer)
     })
