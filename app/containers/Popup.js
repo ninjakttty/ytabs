@@ -13,24 +13,33 @@ class Root extends Component {
 
     return (
       <Provider store={store}>
-        <Button
-          fluid
-          positive
-          icon="save"
-          content="Save All Tabs From This Window"
-          onClick={(e) => {
-            const { metaKey } = e
-            chrome.tabs.create({ url: chrome.extension.getURL('ytabs.html') })
-            saveCurrentWindowTabs()
-            if (!metaKey) {
-              chrome.tabs.query({ currentWindow: true }, (tabs) => {
-                const filterChrome = str => !/^chrome.*/.test(str.url)
-                const ids = tabs.filter(filterChrome).map(site => site.id)
-                chrome.tabs.remove(ids)
-              })
-            }
-          }}
-        />
+        <Button.Group vertical>
+          <Button
+            fluid
+            positive
+            icon="save"
+            content="Save All Tabs From This Window..."
+            onClick={(e) => {
+              const { metaKey } = e
+              chrome.tabs.create({ url: chrome.extension.getURL('ytabs.html') })
+              saveCurrentWindowTabs()
+              if (!metaKey) {
+                chrome.tabs.query({ currentWindow: true }, (tabs) => {
+                  const filterChrome = str => !/^chrome.*/.test(str.url)
+                  const ids = tabs.filter(filterChrome).map(site => site.id)
+                  chrome.tabs.remove(ids)
+                })
+              }
+            }}
+          />
+          <Button
+            fluid
+            content="Open Ytabs"
+            onClick={() => {
+              chrome.tabs.create({ url: chrome.extension.getURL('ytabs.html') })
+            }}
+          />
+        </Button.Group>
       </Provider>
     )
   }
